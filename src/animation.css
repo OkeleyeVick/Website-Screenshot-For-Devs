@@ -1,0 +1,39 @@
+:root {
+	--primary-clr: #731dd8;
+}
+
+.spin-rotation {
+	width: 56px;
+	height: 56px;
+	display: grid;
+	border: 4.5px solid #0000;
+	border-radius: 50%;
+	border-color: #dbdcef #0000;
+	animation: spin-rotation 1s infinite linear;
+}
+
+.spin-rotation::before,
+.spin-rotation::after {
+	content: "";
+	grid-area: 1/1;
+	margin: 2.2px;
+	border: inherit;
+	border-radius: 50%;
+}
+
+.spin-rotation::before {
+	border-color: var(--primary-clr) #0000;
+	animation: inherit;
+	animation-duration: 0.45s;
+	animation-direction: reverse;
+}
+
+.spin-rotation::after {
+	margin: 8.9px;
+}
+
+@keyframes spin-rotation {
+	100% {
+		transform: rotate(1turn);
+	}
+}

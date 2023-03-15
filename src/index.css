@@ -4,7 +4,7 @@
 
 @font-face {
 	font-family: FONT-FAMILY;
-	src: url("./assets/font/Roobert-Regular.ttf") format("truetype");
+	src: url("./assets/font/SpaceGrotesk.ttf") format("truetype");
 }
 * {
 	font-family: FONT-FAMILY;

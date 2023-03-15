@@ -4,9 +4,9 @@ import Option from "./Option";
 const Dropdown = () => {
 	return (
 		<React.Fragment>
-			<div className="rounded-md shadow-custom p-3 relative">
-				<div className="py-1 ">
-					<span className="leading-none text-sm font-semibold">Select Resolution</span>
+			<div className="rounded-md shadow-custom py-2 px-2 absolute top-0 bg-white">
+				<div className="rounded-md bg-main p-1 px-2 mb-3 shadow-custom_2">
+					<span className="leading-none text-sm font-semibold text-white">Select Resolution</span>
 				</div>
 				<div className=" h-52 overflow-auto">
 					{ResolutionOpts.map((resolution, containerIndex) => {

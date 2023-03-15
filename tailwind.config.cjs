@@ -11,7 +11,8 @@ module.exports = {
 				main: "#731DD8",
 			},
 			boxShadow: {
-				custom: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;",
+				custom: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
+				custom_2: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
 			},
 		},
 	},

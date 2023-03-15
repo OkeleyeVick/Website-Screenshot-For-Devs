@@ -1,6 +1,6 @@
-import { Icon } from "@iconify/react";
 import "./animation.css";
-import Dropdown from "./assets/UI-components/Dropdown";
+import MainSection from "./components/MainSection";
+import OtherSection from "./components/OtherSection";
 
 function App() {
 	return (
@@ -9,7 +9,8 @@ function App() {
 				<h1 className="font-semibold text-main text-4xl">Take a Shot 📸</h1>
 				<span className="text-base block">An easy way to capture a screenshot of a full webpage</span>
 			</div>
-
+			<MainSection />
+			<OtherSection />
 			{/* <div className="spin-rotation hidden"></div> */}
 		</div>
 	);

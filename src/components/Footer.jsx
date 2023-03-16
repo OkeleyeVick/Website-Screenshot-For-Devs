@@ -22,7 +22,7 @@ const Footer = () => {
 					</span>
 					<div className="flex items-center flex-wrap gap-2">
 						{links.map((item, index) => {
-							const { icon, link, name, button } = item;
+							const { icon, link, button } = item;
 							return button ? (
 								<button
 									key={index}
@@ -57,7 +57,6 @@ const links = [
 	{
 		icon: <Icon icon="uit:twitter-alt" className="w-6 h-6" />,
 		link: "https://twitter.com/I_am_Justus",
-		name: "twitter",
 	},
 	{
 		icon: <Icon icon="ph:envelope-simple-light" className="w-6 h-6" />,

@@ -3,6 +3,7 @@ import React, { createContext, useState } from "react";
 import Dropdown from "../assets/UI-components/Dropdown";
 import Loader from "../assets/UI-components/Loader";
 import Option from "../assets/UI-components/Option";
+import Button from "../assets/UI-components/Button";
 
 export const sizeContext = createContext();
 
@@ -28,49 +29,56 @@ const MainSection = () => {
 							placeholder="e.g  https://www.google.com"
 						/>
 						<div className="shadow-custom rounded-lg mt-7">
-							<div className="md:grid md:grid-cols-2 gap-3 p-3 border border-gray-200">
-								<div>
-									<span className="title text-sm font-semibold">Screen Size</span>
-									<div className="relative mt-1 ">
-										<button
-											type="button"
-											className="flex items-center justify-between w-full p-2 rounded-md bg-gray-200"
-											onClick={() => {
-												setSecreenSizeDropdown((prev) => !prev);
-											}}>
-											<span className="text-sm">1280 x 720 (HD)</span>
-											<Icon icon="ph:caret-up-down-light" />
-										</button>
-										<Dropdown />
+							<form action="">
+								<div className="md:grid md:grid-cols-2 gap-3 p-3 border rounded-lg border-b-0 border-gray-200">
+									<div>
+										<span className="title text-sm font-semibold">Screen Size</span>
+										<div className="relative mt-1 ">
+											<button
+												type="button"
+												className="flex items-center justify-between w-full p-2 rounded-md bg-gray-200"
+												onClick={() => {
+													setSecreenSizeDropdown((prev) => !prev);
+												}}>
+												<span className="text-sm">1280 x 720 (HD)</span>
+												<Icon icon="ph:caret-up-down-light" />
+											</button>
+											<Dropdown />
+										</div>
 									</div>
-								</div>
-								<div>
-									<span className="title text-sm font-semibold">Image format</span>
-									<div className="relative mt-1">
-										<button
-											type="button"
-											className="flex items-center justify-between w-full p-2 rounded-md bg-gray-200"
-											onClick={() => setFormatDropdown((prev) => !prev)}>
-											<span className="text-sm">.jpeg</span>
-											<Icon icon="ph:caret-up-down-light" />
-										</button>
-										<div
-											className={`rounded-md shadow-custom py-2 px-2 absolute top-100 z-10 transition duration-300 ease-in-out bg-white w-full ${
-												formatDropdown
-													? "visible pointer-events-auto opacity-100 translate-y-2"
-													: "translate-y-8 pointer-events-none opacity-0"
-											}`}>
-											<input type="hidden" value=".jpeg" className="size_format" />
-											<div className="mb-2">
-												<ul className="flex flex-col items-start">
-													<Option>.jpeg</Option>
-													<Option>.png</Option>
-												</ul>
+									<div>
+										<span className="title text-sm font-semibold">Image format</span>
+										<div className="relative mt-1">
+											<button
+												type="button"
+												className="flex items-center justify-between w-full p-2 rounded-md bg-gray-200"
+												onClick={() => setFormatDropdown((prev) => !prev)}>
+												<span className="text-sm">.jpeg</span>
+												<Icon icon="ph:caret-up-down-light" />
+											</button>
+											<div
+												className={`rounded-md shadow-custom py-2 px-2 absolute top-100 z-10 transition duration-300 ease-in-out bg-white w-full ${
+													formatDropdown
+														? "visible pointer-events-auto opacity-100 translate-y-2"
+														: "translate-y-8 pointer-events-none opacity-0"
+												}`}>
+												<input type="hidden" value=".jpeg" className="size_format" />
+												<div className="mb-2">
+													<ul className="flex flex-col items-start">
+														<Option>.jpeg</Option>
+														<Option>.png</Option>
+													</ul>
+												</div>
 											</div>
 										</div>
 									</div>
+									<div> </div>
+									<div> </div>
 								</div>
-							</div>
+								<div className="p-3 border-t flex items-center justify-end">
+									<Button />
+								</div>
+							</form>
 						</div>
 					</div>
 				</div>

@@ -1,35 +1,38 @@
-import React from "react";
+import React, { useContext } from "react";
+import { sizeContext } from "../../components/MainSection";
 import Option from "./Option";
 
 const Dropdown = () => {
+	const { screenSizeDropdown, setSecreenSizeDropdown, formatDropdown, setFormatDropdown } = useContext(sizeContext);
 	return (
-		<React.Fragment>
-			<div className={`translate-y-4 rounded-md shadow-custom py-2 px-2 absolute top-100 bg-white`}>
-				<div className="rounded-md bg-main py-2 px-2 mb-3 shadow-custom">
-					<span className="leading-none text-sm font-semibold text-white">Select Resolution</span>
-				</div>
-				<input type="hidden" name="resolution" />
-				<div className=" h-52 overflow-auto">
-					{ResolutionOpts.map((resolution, containerIndex) => {
-						const { mediaTitleType, sizes } = resolution;
-						return (
-							<div className="mb-3" key={containerIndex}>
-								<div className="title">
-									<h5 className="text-xs font-extrabold px-3 text-gray-800">{mediaTitleType}</h5>
-								</div>
-								<div className="mb-2">
-									<ul className="flex flex-col items-start">
-										{sizes.map((size, index) => {
-											return <Option key={index}>{size}</Option>;
-										})}
-									</ul>
-								</div>
-							</div>
-						);
-					})}
-				</div>
+		<div
+			className={`rounded-md shadow-custom py-2 px-2 absolute top-100 z-10 transition duration-300 ease-in-out bg-white
+				 ${screenSizeDropdown ? "visible pointer-events-auto opacity-100 translate-y-2" : "translate-y-8 pointer-events-none opacity-0"}
+				`}>
+			<div className="rounded-md bg-main py-2 px-2 mb-3 shadow-custom">
+				<span className="leading-none text-sm font-semibold text-white">Select Resolution</span>
 			</div>
-		</React.Fragment>
+			<input type="hidden" name="resolution" />
+			<div className=" h-52 overflow-auto">
+				{ResolutionOpts.map((resolution, containerIndex) => {
+					const { mediaTitleType, sizes } = resolution;
+					return (
+						<div className="mb-3" key={containerIndex}>
+							<div className="title">
+								<h5 className="text-xs font-extrabold px-3 text-gray-800">{mediaTitleType}</h5>
+							</div>
+							<div className="mb-2">
+								<ul className="flex flex-col items-start">
+									{sizes.map((size, index) => {
+										return <Option key={index}>{size}</Option>;
+									})}
+								</ul>
+							</div>
+						</div>
+					);
+				})}
+			</div>
+		</div>
 	);
 };
 

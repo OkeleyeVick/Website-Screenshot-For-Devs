@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
+import { sizeContext } from "../../components/MainSection";
 
 const Option = ({ children }) => {
+	const { screenSizeDropdown, setSecreenSizeDropdown, formatDropdown, setFormatDropdown } = useContext(sizeContext);
+
 	return (
 		<button
 			type="button"

@@ -3,11 +3,10 @@ import React, { useContext } from "react";
 import { sizeContext } from "../../components/MainSection";
 
 const Button = () => {
-	const { screenSizeDropdown, setSecreenSizeDropdown, formatDropdown, setFormatDropdown, loading, setLoading } = useContext(sizeContext);
+	const { handleSubmission, screenSizeDropdown, setSecreenSizeDropdown, formatDropdown, setFormatDropdown, setLoading } = useContext(sizeContext);
 
 	function handleScreenshot(e) {
 		e.preventDefault();
-		setLoading(true);
 	}
 	return (
 		<button className="capture bg-main rounded-md text-white p-3 pr-14 relative" type="submit" onClick={handleScreenshot}>

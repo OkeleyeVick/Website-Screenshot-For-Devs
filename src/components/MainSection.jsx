@@ -1,5 +1,5 @@
 import { Icon } from "@iconify/react";
-import React, { createContext, useState } from "react";
+import React, { createContext, useRef, useState } from "react";
 import Dropdown from "../assets/UI-components/Dropdown";
 import Loader from "../assets/UI-components/Loader";
 import Option from "../assets/UI-components/Option";
@@ -13,24 +13,30 @@ const MainSection = () => {
 	const [formatDropdown, setFormatDropdown] = useState(false);
 	const [loading, setLoading] = useState(false);
 
+	const urlRef = useRef();
+
+	function handleSubmission() {
+		setLoading(true);
+	}
+
 	return (
-		<sizeContext.Provider value={{ screenSizeDropdown, setSecreenSizeDropdown, formatDropdown, setFormatDropdown, loading, setLoading }}>
+		<sizeContext.Provider
+			value={{ handleSubmission, screenSizeDropdown, setSecreenSizeDropdown, formatDropdown, setFormatDropdown, loading, setLoading }}>
 			<section className="md:grid md:grid-cols-7 mt-8 relative">
 				<div className="col-start-2 col-end-7 ">
 					<div className="text-start">
 						<small className="text-sm">Enter Website URL</small>
 					</div>
-					<div className="">
-						<input
-							type="url"
-							name=""
-							id=""
-							aria-label="Input text"
-							className="w-full min-h-[3rem] p-3 text-sm border-[1.5px] focus:outline-none transition duration-300 ease-in-out border-gray-100 rounded-md focus:shadow-none focus:border-main"
-							placeholder="e.g  https://www.google.com"
-						/>
-						<div className="shadow-custom rounded-lg mt-7 bg-white">
-							<form action="">
+					<form action="" onSubmit={handleSubmission}>
+						<div className="">
+							<input
+								type="url"
+								ref={urlRef}
+								aria-label="Input text"
+								className="w-full min-h-[3rem] p-3 text-sm border-[1.5px] focus:outline-none transition duration-300 ease-in-out border-gray-100 rounded-md focus:shadow-none focus:border-main"
+								placeholder="e.g  https://www.google.com"
+							/>
+							<div className="shadow-custom rounded-lg mt-7 bg-white">
 								<div className="md:grid md:grid-cols-2 gap-3 p-3 border rounded-lg border-b-0 border-gray-50">
 									<div>
 										<span className="title text-sm font-semibold">Screen Size</span>
@@ -97,9 +103,9 @@ const MainSection = () => {
 								<div className="p-3 border-t flex items-center justify-end">
 									<Button />
 								</div>
-							</form>
+							</div>
 						</div>
-					</div>
+					</form>
 				</div>
 			</section>
 			<div>{loading ? <Loader /> : null}</div>

@@ -5,12 +5,12 @@ import Card from "../assets/UI-components/Card";
 const OtherSection = () => {
 	return (
 		<React.Fragment>
-			<div className="mt-32 px-3">
-				<div className="md:grid md:grid-cols-9">
-					<h2 className="md:col-start-2 md:col-end-9 lg:col-end-5 font-extrabold text-3xl">Steps to take screenshot</h2>
+			<div className="mt-32 px-1">
+				<div className="md:grid md:grid-cols-12 lg:grid-cols-9">
+					<h2 className="md:col-start-1 md:col-end-12 lg:col-end-5 font-extrabold text-3xl">Steps to take screenshot</h2>
 				</div>
-				<div className="md:grid md:grid-cols-9 mt-10">
-					<div className="col-start-2 col-end-9 grid md:grid-cols-3 gap-x-8 gap-y-10 mt-8">
+				<div className="md:grid md:grid-cols-12 lg:grid-cols-9 mt-10">
+					<div className="col-start-1 col-end-13 grid md:grid-cols-3 gap-x-8 gap-y-10 mt-8">
 						{CardContent.map((eachItem, index) => {
 							const { icon, paragraph, color } = eachItem;
 							return <Card key={index} props={{ icon, paragraph, color }} />;

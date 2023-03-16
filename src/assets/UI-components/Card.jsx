@@ -6,7 +6,7 @@ const Card = ({ props }) => {
 	return (
 		<div className={`flex flex-col relative rounded-md p-4`} style={{ backgroundColor: color }}>
 			<div
-				className="icon-container aspect-square rounded-full w-max p-4 absolute -left-4 shadow-sm -top-8 text-white"
+				className="icon-container aspect-square rounded-full w-max p-4 absolute left-0 md:-left-4 shadow-sm -top-8 text-white"
 				style={{ backgroundColor: color }}>
 				{icon}
 			</div>

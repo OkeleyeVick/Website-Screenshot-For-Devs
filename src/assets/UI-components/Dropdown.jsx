@@ -6,7 +6,7 @@ const Dropdown = () => {
 	const { screenSizeDropdown, setSecreenSizeDropdown, formatDropdown, setFormatDropdown } = useContext(sizeContext);
 	return (
 		<div
-			className={`rounded-md shadow-custom py-2 px-2 absolute top-100 z-10 transition duration-300 ease-in-out bg-white
+			className={`rounded-md shadow-custom py-2 px-2 absolute top-100 z-50 transition duration-300 ease-in-out bg-white
 				 ${screenSizeDropdown ? "visible pointer-events-auto opacity-100 translate-y-2" : "translate-y-8 pointer-events-none opacity-0"}
 				`}>
 			<div className="rounded-md bg-main py-2 px-2 mb-3 shadow-custom">

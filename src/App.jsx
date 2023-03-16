@@ -9,7 +9,7 @@ function App() {
 				<span className="text-base block">An easy way to capture a screenshot of a full webpage</span>
 			</div>
 			<MainSection />
-			{/* <OtherSection /> */}
+			<OtherSection />
 		</div>
 	);
 }

@@ -7,6 +7,7 @@ const Button = () => {
 
 	function handleScreenshot(e) {
 		e.preventDefault();
+		handleSubmission();
 	}
 	return (
 		<button className="capture bg-main rounded-md text-white p-3 pr-14 relative" type="submit" onClick={handleScreenshot}>

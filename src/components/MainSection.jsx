@@ -15,8 +15,14 @@ const MainSection = () => {
 
 	const urlRef = useRef();
 
+	async function fetchScreenShot() {
+		try {
+		} catch (error) {}
+	}
+
 	function handleSubmission() {
-		setLoading(true);
+		fetchScreenShot();
+		// setLoading(true);
 	}
 
 	return (

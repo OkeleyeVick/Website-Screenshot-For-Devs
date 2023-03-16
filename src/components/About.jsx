@@ -4,7 +4,7 @@ import Image from "../assets/images/image-3d.png";
 const About = () => {
 	return (
 		<section className="gap-2 md:grid md:grid-cols-9 my-16">
-			<div className="col-start-2 col-end-9 mt-8 gap-8 md:grid md:grid-cols-2 overflow-hidden">
+			<div className="col-start-2 col-end-9 mt-8 gap-8 md:grid md:grid-cols-2 overflow-hidden py-4">
 				<div className="flex flex-col gap-4">
 					<div className="flex flex-col">
 						<h2 className="text-2xl font-semibold">Inspiration</h2>

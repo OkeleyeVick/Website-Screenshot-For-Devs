@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { sizeContext } from "../../components/MainSection";
 
-const Option = ({ children }) => {
+const Option = ({ children, area }) => {
 	const { screenSizeDropdown, setSecreenSizeDropdown, formatDropdown, setFormatDropdown } = useContext(sizeContext);
 
 	return (

@@ -2,6 +2,9 @@
 	--primary-clr-opacity: #f0e2ff;
 	--primary-clr: #731dd8;
 }
+body:has(.glassmorphism) {
+	overflow: hidden;
+}
 .icon-container {
 	position: relative;
 }
@@ -208,25 +211,24 @@
 	transform: scale(0.95);
 }
 
-/* checkboxes */
+/* radioes */
 .cont {
 	display: flex;
 	align-items: center;
 	transform: scale(1);
 }
 
-input[type="checkbox"] {
+input[type="radio"] {
 	margin: 5px;
 	display: inline-block;
 	appearance: none;
 	position: relative;
-	/* background-color: var(--primary-clr-opacity); */
 	border-radius: 15%;
 	cursor: pointer;
 	overflow: hidden;
 }
 
-input[type="checkbox"]::after {
+input[type="radio"]::after {
 	content: "";
 	display: block;
 	height: 0.8rem;
@@ -241,7 +243,7 @@ input[type="checkbox"]::after {
 	transition: 0.25s ease;
 }
 
-input[type="checkbox"]::before {
+input[type="radio"]::before {
 	content: "";
 	display: block;
 	height: 0;
@@ -256,13 +258,13 @@ input[type="checkbox"]::before {
 	transition: 0.3s ease;
 }
 
-input[type="checkbox"]:checked::before {
+input[type="radio"]:checked::before {
 	height: 130%;
 	width: 130%;
 	opacity: 100%;
 }
 
-input[type="checkbox"]:checked::after {
+input[type="radio"]:checked::after {
 	opacity: 100%;
 }
 

@@ -25,7 +25,7 @@ const About = () => {
 						</span>
 					</div>
 				</div>
-				<div className="text-center mx-auto mt-16 md:my-12 lg:mt-6 col-start-4 col-end-6">
+				<div className="text-center mx-auto mt-16 md:mt-12 lg:my-12 col-start-4 col-end-6">
 					<img src={Image} alt="" className="scale-110 md:scale-125 ml-auto md:mx-auto" />
 				</div>
 			</div>

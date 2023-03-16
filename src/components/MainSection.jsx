@@ -14,7 +14,7 @@ const MainSection = () => {
 	const [loading, setLoading] = useState(false);
 
 	return (
-		<sizeContext.Provider value={{ screenSizeDropdown, setSecreenSizeDropdown, formatDropdown, setFormatDropdown }}>
+		<sizeContext.Provider value={{ screenSizeDropdown, setSecreenSizeDropdown, formatDropdown, setFormatDropdown, loading, setLoading }}>
 			<section className="md:grid md:grid-cols-7 mt-8 relative">
 				<div className="col-start-2 col-end-7 ">
 					<div className="text-start">
@@ -77,19 +77,19 @@ const MainSection = () => {
 								<div className="flex items-center  gap-4 md:gap-8 flex-wrap p-3">
 									<div>
 										<label className="cont">
-											<input type="checkbox" aria-label="desktop" name="desktop" className="bg-gray-200 w-6 h-6" />
+											<input type="radio" aria-label="desktop" name="screen-size-type" className="bg-gray-200 w-6 h-6" />
 											<span className="text-base">Desktop</span>
 										</label>
 									</div>
 									<div>
 										<label className="cont">
-											<input type="checkbox" aria-label="tablet" name="tablet" className="bg-gray-200 w-6 h-6" />
+											<input type="radio" aria-label="tablet" name="screen-size-type" className="bg-gray-200 w-6 h-6" />
 											<span className="text-base">Tablet</span>
 										</label>
 									</div>
 									<div>
 										<label className="cont">
-											<input type="checkbox" aria-label="mobile" name="mobile" className="bg-gray-200 w-6 h-6" />
+											<input type="radio" aria-label="mobile" name="screen-size-type" className="bg-gray-200 w-6 h-6" />
 											<span className="text-base">Mobile</span>
 										</label>
 									</div>

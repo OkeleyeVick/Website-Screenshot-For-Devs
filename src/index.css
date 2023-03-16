@@ -4,7 +4,7 @@
 
 @font-face {
 	font-family: FONT-FAMILY;
-	src: url("./assets/font/IBMPlexSans-Regular.ttf") format("truetype");
+	src: url("./assets/font/SpaceGrotesk.ttf") format("truetype");
 }
 :root {
 	--primary-clr-opacity: #f0e2ff;

@@ -11,7 +11,7 @@ const Card = ({ props }) => {
 				{icon}
 			</div>
 			<div className="mt-8">
-				<small className="leading-normal flex text-white">{paragraph}</small>
+				<small className="leading-normal flex text-white text-lg">{paragraph}</small>
 			</div>
 		</div>
 	);

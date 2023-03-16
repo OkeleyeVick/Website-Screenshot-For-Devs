@@ -1,12 +1,12 @@
 import React from "react";
 
-const Card = ({ icon, text }) => {
+const Card = ({ icon, paragraph, index }) => {
 	return (
-		<div className="flex flex-col overflow-hidden rounded-md">
+		<div className="flex flex-col overflow-hidden rounded-md" key={index}>
 			<div className="flex flex-col">
 				<div>{icon}</div>
 				<div>
-					<small>{text}</small>
+					<small>{paragraph}</small>
 				</div>
 			</div>
 		</div>

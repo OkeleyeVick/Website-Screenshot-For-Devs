@@ -18,7 +18,7 @@ const MainSection = () => {
 					<div className="text-start">
 						<small className="text-sm">Enter Website URL</small>
 					</div>
-					<div className="bg-white">
+					<div className="bg-white p-1">
 						<input
 							type="url"
 							name=""
@@ -27,7 +27,7 @@ const MainSection = () => {
 							className="w-full min-h-[3rem] p-3 text-sm border-[1.5px] border-b focus:outline-none transition duration-300 ease-in-out border-gray-200 rounded-t-md focus:shadow-none focus:border-main"
 							placeholder="e.g  https://www.google.com"
 						/>
-						<div className="shadow-custom rounded-b-md">
+						<div className="shadow-custom rounded-lg mt-7 overflow-hidden">
 							<div className="md:grid md:grid-cols-2 gap-3 p-3 border-t border-t-gray-200">
 								<div>
 									<span className="title text-sm font-semibold">Screen Size</span>

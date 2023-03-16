@@ -27,6 +27,7 @@ const Footer = () => {
 								<button
 									key={index}
 									type="button"
+									className="hover:text-main transition duration-300 ease-in-out"
 									onClick={() =>
 										handleShare({
 											link: "www.google.com",
@@ -35,7 +36,7 @@ const Footer = () => {
 									{icon}
 								</button>
 							) : (
-								<a href={link} key={index}>
+								<a href={link} key={index} className="hover:text-main transition duration-300 ease-in-out">
 									{icon}
 								</a>
 							);

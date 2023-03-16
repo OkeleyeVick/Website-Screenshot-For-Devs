@@ -86,7 +86,7 @@ const MainSection = () => {
 										</div>
 									</div>
 								</div>
-								<div className="flex items-center  gap-4 md:gap-8 flex-wrap p-3">
+								<div className="flex items-center gap-4 md:gap-8 flex-wrap p-3">
 									<div>
 										<label className="cont">
 											<input type="radio" aria-label="desktop" name="screen-size-type" className="bg-gray-200 w-6 h-6" />

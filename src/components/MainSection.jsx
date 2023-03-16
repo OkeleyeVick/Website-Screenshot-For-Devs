@@ -37,7 +37,7 @@ const MainSection = () => {
 										<div className="relative mt-1 ">
 											<button
 												type="button"
-												className="flex items-center justify-between w-full p-3 rounded-md bg-gray-200"
+												className="flex items-center justify-between w-full p-3 rounded-md bg-gray-100"
 												onClick={() => {
 													setSecreenSizeDropdown((prev) => !prev);
 												}}>
@@ -52,7 +52,7 @@ const MainSection = () => {
 										<div className="relative mt-1">
 											<button
 												type="button"
-												className="flex items-center justify-between w-full p-3 rounded-md bg-gray-200"
+												className="flex items-center justify-between w-full p-3 rounded-md bg-gray-100"
 												onClick={() => setFormatDropdown((prev) => !prev)}>
 												<span className="text-sm">.jpeg</span>
 												<Icon icon="ph:caret-up-down-light" />

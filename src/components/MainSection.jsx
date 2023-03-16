@@ -4,6 +4,7 @@ import Dropdown from "../assets/UI-components/Dropdown";
 import Loader from "../assets/UI-components/Loader";
 import Option from "../assets/UI-components/Option";
 import Button from "../assets/UI-components/Button";
+import "../assets/animations/animation.css";
 
 export const sizeContext = createContext();
 
@@ -25,18 +26,18 @@ const MainSection = () => {
 							name=""
 							id=""
 							aria-label="Input text"
-							className="w-full min-h-[3rem] p-3 text-sm border-[1.5px] focus:outline-none transition duration-300 ease-in-out border-gray-200 rounded-md focus:shadow-none focus:border-main"
+							className="w-full min-h-[3rem] p-3 text-sm border-[1.5px] focus:outline-none transition duration-300 ease-in-out border-gray-100 rounded-md focus:shadow-none focus:border-main"
 							placeholder="e.g  https://www.google.com"
 						/>
-						<div className="shadow-custom rounded-lg mt-7">
+						<div className="shadow-custom rounded-lg mt-7 bg-white">
 							<form action="">
-								<div className="md:grid md:grid-cols-2 gap-3 p-3 border rounded-lg border-b-0 border-gray-200">
+								<div className="md:grid md:grid-cols-2 gap-3 p-3 border rounded-lg border-b-0 border-gray-50">
 									<div>
 										<span className="title text-sm font-semibold">Screen Size</span>
 										<div className="relative mt-1 ">
 											<button
 												type="button"
-												className="flex items-center justify-between w-full p-2 rounded-md bg-gray-200"
+												className="flex items-center justify-between w-full p-3 rounded-md bg-gray-200"
 												onClick={() => {
 													setSecreenSizeDropdown((prev) => !prev);
 												}}>
@@ -51,7 +52,7 @@ const MainSection = () => {
 										<div className="relative mt-1">
 											<button
 												type="button"
-												className="flex items-center justify-between w-full p-2 rounded-md bg-gray-200"
+												className="flex items-center justify-between w-full p-3 rounded-md bg-gray-200"
 												onClick={() => setFormatDropdown((prev) => !prev)}>
 												<span className="text-sm">.jpeg</span>
 												<Icon icon="ph:caret-up-down-light" />
@@ -72,8 +73,26 @@ const MainSection = () => {
 											</div>
 										</div>
 									</div>
-									<div> </div>
-									<div> </div>
+								</div>
+								<div className="flex items-center gap-8 flex-wrap p-3">
+									<div>
+										<label className="cont">
+											<input type="checkbox" aria-label="desktop" name="desktop" className="bg-gray-200 w-6 h-6" />
+											<span className="text-base">Desktop</span>
+										</label>
+									</div>
+									<div>
+										<label className="cont">
+											<input type="checkbox" aria-label="tablet" name="tablet" className="bg-gray-200 w-6 h-6" />
+											<span className="text-base">Tablet</span>
+										</label>
+									</div>
+									<div>
+										<label className="cont">
+											<input type="checkbox" aria-label="mobile" name="mobile" className="bg-gray-200 w-6 h-6" />
+											<span className="text-base">Mobile</span>
+										</label>
+									</div>
 								</div>
 								<div className="p-3 border-t flex items-center justify-end">
 									<Button />

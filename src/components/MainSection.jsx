@@ -18,20 +18,20 @@ const MainSection = () => {
 					<div className="text-start">
 						<small className="text-sm">Enter Website URL</small>
 					</div>
-					<div className="bg-white p-1">
+					<div className="">
 						<input
 							type="url"
 							name=""
 							id=""
 							aria-label="Input text"
-							className="w-full min-h-[3rem] p-3 text-sm border-[1.5px] border-b focus:outline-none transition duration-300 ease-in-out border-gray-200 rounded-t-md focus:shadow-none focus:border-main"
+							className="w-full min-h-[3rem] p-3 text-sm border-[1.5px] focus:outline-none transition duration-300 ease-in-out border-gray-200 rounded-md focus:shadow-none focus:border-main"
 							placeholder="e.g  https://www.google.com"
 						/>
 						<div className="shadow-custom rounded-lg mt-7">
-							<div className="md:grid md:grid-cols-2 gap-3 p-3 border-t border-t-gray-200">
+							<div className="md:grid md:grid-cols-2 gap-3 p-3 border border-gray-200">
 								<div>
 									<span className="title text-sm font-semibold">Screen Size</span>
-									<div className="relative mt-1">
+									<div className="relative mt-1 ">
 										<button
 											type="button"
 											className="flex items-center justify-between w-full p-2 rounded-md bg-gray-200"

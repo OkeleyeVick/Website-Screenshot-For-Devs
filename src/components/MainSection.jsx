@@ -13,7 +13,7 @@ const MainSection = () => {
 
 	return (
 		<sizeContext.Provider value={{ screenSizeDropdown, setSecreenSizeDropdown, formatDropdown, setFormatDropdown }}>
-			<section className="md:grid md:grid-cols-7 mt-8">
+			<section className="md:grid md:grid-cols-7 mt-8 relative">
 				<div className="col-start-2 col-end-7 ">
 					<div className="text-start">
 						<small className="text-sm">Enter Website URL</small>

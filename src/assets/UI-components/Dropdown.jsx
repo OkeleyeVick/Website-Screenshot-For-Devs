@@ -4,17 +4,18 @@ import Option from "./Option";
 const Dropdown = () => {
 	return (
 		<React.Fragment>
-			<div className="rounded-md shadow-custom py-2 px-2 absolute top-0 bg-white">
-				<div className="rounded-md bg-main p-1 px-2 mb-3 shadow-custom_2">
+			<div className={`translate-y-4 rounded-md shadow-custom py-2 px-2 absolute top-100 bg-white`}>
+				<div className="rounded-md bg-main py-2 px-2 mb-3 shadow-custom">
 					<span className="leading-none text-sm font-semibold text-white">Select Resolution</span>
 				</div>
+				<input type="hidden" name="resolution" />
 				<div className=" h-52 overflow-auto">
 					{ResolutionOpts.map((resolution, containerIndex) => {
 						const { mediaTitleType, sizes } = resolution;
 						return (
 							<div className="mb-3" key={containerIndex}>
 								<div className="title">
-									<h5 className="text-xs font-extrabold px-1 text-gray-800">{mediaTitleType}</h5>
+									<h5 className="text-xs font-extrabold px-3 text-gray-800">{mediaTitleType}</h5>
 								</div>
 								<div className="mb-2">
 									<ul className="flex flex-col items-start">

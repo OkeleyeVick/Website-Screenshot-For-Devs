@@ -1,3 +1,4 @@
+import About from "./components/About";
 import Footer from "./components/Footer";
 import MainSection from "./components/MainSection";
 import OtherSection from "./components/OtherSection";
@@ -11,6 +12,7 @@ function App() {
 			</div>
 			<MainSection />
 			<OtherSection />
+			<About />
 			<Footer />
 		</div>
 	);

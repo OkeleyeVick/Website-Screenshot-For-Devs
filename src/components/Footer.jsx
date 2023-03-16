@@ -13,7 +13,7 @@ const Footer = () => {
 	return (
 		<div className="md:grid md:grid-cols-9">
 			<div className="col-start-2 col-end-9 mt-8 border-t py-6 border-t-gray-300">
-				<div className="flex md:items-center justify-between gap-2 sm:gap-3 flex-wrap sm:flex-nowrap flex-col-reverse sm:flex-row">
+				<div className="flex md:items-center justify-between gap-2 sm:gap-3 flex-wrap sm:flex-row">
 					<span className="text-sm">
 						@2023 &nbsp;
 						<a href="https://twitter.com/I_am_Justus" className="hover:underline text-main">

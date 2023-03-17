@@ -14,12 +14,15 @@ const MainSection = () => {
 	const [loading, setLoading] = useState(false); //loader when fetch is running under the hood
 	const [urlLink, setURLlink] = useState(""); //url passed by user
 	const [imageFormatButtonState, setimageFormatButtonState] = useState(); // toggle format dropdown button active states
-	const [resolutionState, setResolutionState] = useState(); // toggle res dropdown button active states
+	const [resolutionState, setResolutionState] = useState({
+		cIndex: null,
+		index: null,
+	}); // toggle res dropdown button active states
 	const [urlParameters, setUrlParameters] = useState({
 		width: null,
 		height: null,
 		full_page: false,
-		format: `jpeg`,
+		format: `jpeg`, //default imageFormat
 	}); //also info passed by user
 	const [imageLink, setImageLink] = useState(""); //link gotten from api
 	const [error, setError] = useState(); //setting error state everywhere
@@ -133,26 +136,38 @@ const MainSection = () => {
 		fetchScreenShot();
 	}
 	const handleSetImageFormat = (imageFormat, index) => {
+		const viewFormat = document.querySelector("button .viewFormat");
+		viewFormat.innerHTML = imageFormat;
 		setimageFormatButtonState(index);
 		setFormatDropdown(false);
 		const JPEGformatOrImageFormat = index === 0 ? imageFormat.split("/")[0].trim() : imageFormat;
-		const newState = {
+		setUrlParameters({
 			...urlParameters,
 			format: JPEGformatOrImageFormat.split(".")[1],
-		};
-		setUrlParameters(newState);
+		});
 	};
 
 	return (
 		<sizeContext.Provider
-			value={{ handleSubmission, screenSizeDropdown, setSecreenSizeDropdown, formatDropdown, setFormatDropdown, loading, setLoading }}>
+			value={{
+				urlParameters,
+				setUrlParameters,
+				resolutionState,
+				setResolutionState,
+				handleSubmission,
+				screenSizeDropdown,
+				setSecreenSizeDropdown,
+				formatDropdown,
+				setFormatDropdown,
+				loading,
+				setLoading,
+			}}>
 			<section className="md:grid md:grid-cols-7 mt-8 relative">
 				<div className="col-start-2 col-end-7 ">
 					<div className="text-start">
 						<small className="text-sm">Enter Website URL</small>
 					</div>
 					<form action="" onSubmit={handleSubmission}>
-						{console.log(urlParameters)}
 						<div className="">
 							<input
 								type="url"
@@ -168,7 +183,7 @@ const MainSection = () => {
 										<div className="relative mt-1 ">
 											<button
 												type="button"
-												className="flex items-center justify-between w-full p-3 rounded-md bg-gray-100 hover:bg-gray-300 transition duration-300 ease-in-out"
+												className="flex items-center justify-between w-full p-3 rounded-md bg-gray-100 hover:bg-main hover:bg-opacity-60 hover:text-white transition duration-300 ease-in-out"
 												onClick={() => {
 													setSecreenSizeDropdown((prev) => !prev);
 												}}>
@@ -183,18 +198,17 @@ const MainSection = () => {
 										<div className="relative mt-1">
 											<button
 												type="button"
-												className="flex items-center justify-between w-full p-3 rounded-md bg-gray-100 hover:bg-gray-300 transition duration-300 ease-in-out"
+												className="flex items-center justify-between w-full p-3 rounded-md bg-gray-100 hover:bg-main hover:bg-opacity-60 hover:text-white transition duration-300 ease-in-out"
 												onClick={() => setFormatDropdown((prev) => !prev)}>
-												<span className="text-sm">.jpeg</span>
+												<span className="viewFormat text-sm">.jpeg / .jpg</span>
 												<Icon icon="ph:caret-up-down-light" />
 											</button>
 											<div
-												className={`rounded-md shadow-custom py-2 px-2 absolute top-100 z-10 transition duration-300 ease-in-out bg-white w-full ${
+												className={`rounded-md shadow-custom_4 py-2 px-2 absolute top-100 z-10 transition duration-300 ease-in-out bg-white w-full ${
 													formatDropdown
 														? "visible pointer-events-auto opacity-100 translate-y-2"
 														: "translate-y-8 pointer-events-none opacity-0"
 												}`}>
-												<input type="hidden" value=".jpeg" className="size_format" />
 												<div className="mb-2">
 													<ul className="flex flex-col items-start gap-y-[3px]">
 														{[".jpeg / .jpg", ".png", ".webp"].map((format, index) => {
@@ -202,7 +216,7 @@ const MainSection = () => {
 																<button
 																	type="button"
 																	onClick={() => handleSetImageFormat(format, index)}
-																	className={`text-xs transition ease-in-out duration-200 hover:bg-main hover:bg-opacity-50 w-full text-start py-2 px-3 rounded-md hover:text-white ${
+																	className={`text-xs transition ease-in-out duration-200 hover:bg-main hover:bg-opacity-80 w-full text-start py-2 px-3 rounded-md hover:text-white ${
 																		imageFormatButtonState === index
 																			? "bg-main text-white hover:bg-opacity-100"
 																			: "bg-transparent"

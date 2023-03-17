@@ -19,7 +19,6 @@ const Dropdown = () => {
 			<div className="rounded-md bg-main py-2 px-2 mb-3 shadow-custom">
 				<span className="leading-none text-sm font-semibold text-white">Select Resolution</span>
 			</div>
-			<input type="hidden" name="resolution" />
 			<div className=" h-52 overflow-auto">
 				{ResolutionOpts.map((resolution, containerIndex) => {
 					const { mediaTitleType, sizes } = resolution;

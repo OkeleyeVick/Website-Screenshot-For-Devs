@@ -7,22 +7,39 @@ import Button from "../assets/UI-components/Button";
 import "../assets/animations/animation.css";
 
 export const sizeContext = createContext();
+const abstract = import.meta.env.VITE_ABSTRACT_API_KEY;
+const machine = import.meta.env.VITE_SCREENSHOT_MACHINE_API_KEY;
 
 const MainSection = () => {
 	const [screenSizeDropdown, setSecreenSizeDropdown] = useState(false);
 	const [formatDropdown, setFormatDropdown] = useState(false);
 	const [loading, setLoading] = useState(false);
+	const [urlLink, setURLlink] = useState("");
+	const [area, setArea] = useState({
+		// height:
+	});
 
 	const urlRef = useRef();
 
 	async function fetchScreenShot() {
 		try {
+			// const abstract_fetch = await fetch(`https://screenshot.abstractapi.com/v1/?api_key=${abstract}&url=${urlLink}`);
+			// const machine_fetch = await fetch(
+			// 	`https://api.screenshotmachine.com?key=${machine}&url=${urlLink}&dimension=${width}x${height}&delay=5000`
+			// );
 		} catch (error) {}
 	}
 
+	const response = fetch(`https://api.screenshotmachine.com?key=9a68b8&url=https://v-language-translator.netlify.app/&dimension=1024x768`);
+	response
+		.then((result) => {
+			return result.blob();
+		})
+		.then((data) => console.log(data));
+
 	function handleSubmission() {
 		fetchScreenShot();
-		// setLoading(true);
+		setLoading(false);
 	}
 
 	return (
@@ -77,10 +94,7 @@ const MainSection = () => {
 												}`}>
 												<input type="hidden" value=".jpeg" className="size_format" />
 												<div className="mb-2">
-													<ul className="flex flex-col items-start">
-														<Option>.jpeg</Option>
-														<Option>.png</Option>
-													</ul>
+													<ul className="flex flex-col items-start"></ul>
 												</div>
 											</div>
 										</div>

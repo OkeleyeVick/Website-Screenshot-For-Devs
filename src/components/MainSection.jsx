@@ -7,8 +7,9 @@ import Button from "../assets/UI-components/Button";
 import "../assets/animations/animation.css";
 
 export const sizeContext = createContext();
+
 const abstract = import.meta.env.VITE_ABSTRACT_API_KEY;
-const machine = import.meta.env.VITE_SCREENSHOT_MACHINE_API_KEY;
+const r_one = import.meta.env.VITE_RAPID_KEY;
 
 const MainSection = () => {
 	const [screenSizeDropdown, setSecreenSizeDropdown] = useState(false);
@@ -21,22 +22,30 @@ const MainSection = () => {
 
 	const urlRef = useRef();
 
-	async function fetchScreenShot() {
-		try {
-			// const abstract_fetch = await fetch(`https://screenshot.abstractapi.com/v1/?api_key=${abstract}&url=${urlLink}`);
-			// const machine_fetch = await fetch(
-			// 	`https://api.screenshotmachine.com?key=${machine}&url=${urlLink}&dimension=${width}x${height}&delay=5000`
-			// );
-		} catch (error) {}
+	function Options(host) {
+		return {
+			method: "GET",
+			headers: {
+				"X-RapidAPI-Key": `${r_one}`,
+				"X-RapidAPI-Host": `${host}`,
+			},
+		};
 	}
 
-	const response = fetch(`https://api.screenshotmachine.com?key=9a68b8&url=https://v-language-translator.netlify.app/&dimension=1024x768`);
-	response
-		.then((result) => {
-			return result.blob();
-		})
-		.then((data) => console.log(data));
+	async function fetchScreenShot() {
+		const r_one_url = `https://screenshot-url-to-image.p.rapidapi.com/screenshot?`;
+		const r_two_url = `https://screenshot-maker.p.rapidapi.com/browser/screenshot/_take?`;
+		const abstract_url = `https://screenshot.abstractapi.com/v1/?`;
 
+		try {
+			const abstract_fetch = await fetch(`${abstract_url}api_key=${abstract}&url=${urlLink}`);
+			const r_one_fetch = await fetch(`${r_one_url}url=${urlLink}&width=${width}&height=${height}`, Options("screenshot-maker.p.rapidapi.com"));
+			const r_two_fetch = await fetch(
+				`${r_two_url}targetUrl=${urlLink}&pageWidth=${width}&pageHeight=${height}&clickDelay=4000`,
+				Options("screenshot-url-to-image.p.rapidapi.com")
+			);
+		} catch (error) {}
+	}
 	function handleSubmission() {
 		fetchScreenShot();
 		setLoading(false);

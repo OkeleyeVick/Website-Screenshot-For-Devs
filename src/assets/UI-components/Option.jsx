@@ -2,7 +2,15 @@ import React, { useContext } from "react";
 import { sizeContext } from "../../components/MainSection";
 
 const Option = ({ children, area }) => {
-	const { setSecreenSizeDropdown, resolutionState, setResolutionState, urlParameters, setUrlParameters } = useContext(sizeContext);
+	const {
+		resolutionTextvalue,
+		setResolutionTextValue,
+		setSecreenSizeDropdown,
+		resolutionState,
+		setResolutionState,
+		urlParameters,
+		setUrlParameters,
+	} = useContext(sizeContext);
 	const { width, height, index, containerIndex } = area;
 
 	const handleSetFormatState = (height, width, index, containerIndex) => {
@@ -18,6 +26,7 @@ const Option = ({ children, area }) => {
 			width: width,
 			height: height,
 		});
+		setResolutionTextValue(children);
 	};
 
 	return (

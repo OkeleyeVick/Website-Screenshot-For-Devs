@@ -26,6 +26,7 @@ const MainSection = () => {
 	}); //also info passed by user
 	const [imageLink, setImageLink] = useState(""); //link gotten from api
 	const [error, setError] = useState(); //setting error state everywhere
+	const [resolutionTextvalue, setResolutionTextValue] = useState("1280 x 1024 (SXGA)");
 
 	const urlRef = useRef();
 
@@ -150,6 +151,8 @@ const MainSection = () => {
 	return (
 		<sizeContext.Provider
 			value={{
+				resolutionTextvalue,
+				setResolutionTextValue,
 				urlParameters,
 				setUrlParameters,
 				resolutionState,
@@ -167,7 +170,7 @@ const MainSection = () => {
 					<div className="text-start">
 						<small className="text-sm">Enter Website URL</small>
 					</div>
-					<form action="" onSubmit={handleSubmission}>
+					<form onSubmit={handleSubmission}>
 						<div className="">
 							<input
 								type="url"
@@ -187,7 +190,7 @@ const MainSection = () => {
 												onClick={() => {
 													setSecreenSizeDropdown((prev) => !prev);
 												}}>
-												<span className="text-sm">1280 x 720 (HD)</span>
+												<span className="text-sm">{resolutionTextvalue}</span>
 												<Icon icon="ph:caret-up-down-light" />
 											</button>
 											<Dropdown />
@@ -235,7 +238,13 @@ const MainSection = () => {
 								<div className="flex items-center gap-4 md:gap-8 flex-wrap p-3">
 									<div>
 										<label className="cont">
-											<input type="radio" aria-label="desktop" name="screen-size-type" className="bg-gray-200 w-6 h-6" />
+											<input
+												type="radio"
+												aria-label="desktop"
+												name="screen-size-type"
+												className="bg-gray-200 w-6 h-6"
+												onChange={() => setUrlParameters}
+											/>
 											<span className="text-base">Desktop</span>
 										</label>
 									</div>

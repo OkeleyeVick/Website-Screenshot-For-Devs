@@ -4,13 +4,9 @@ import Dropdown from "../assets/UI-components/Dropdown";
 import Loader from "../assets/UI-components/Loader";
 import Button from "../assets/UI-components/Button";
 import "../assets/animations/animation.css";
+import { abstract, rapid, pikwy, flash } from "./utils/keys";
 
 export const sizeContext = createContext();
-
-const abstract = import.meta.env.VITE_ABSTRACT_API_KEY;
-const r_one = import.meta.env.VITE_RAPID_KEY;
-const pikwy = import.meta.env.VITE_PIKWY_API_KEY;
-const flash = import.meta.env.VITE_FLASH_API_KEY;
 
 const MainSection = () => {
 	const [screenSizeDropdown, setSecreenSizeDropdown] = useState(false); // dropdown for selection for screenshot size
@@ -21,7 +17,7 @@ const MainSection = () => {
 		width: null,
 		height: null,
 		full_page: false,
-		format: "jpeg",
+		format: `jpeg`,
 	}); //also info passed by user
 	const [image, setImage] = useState();
 
@@ -31,7 +27,7 @@ const MainSection = () => {
 		return {
 			method: "GET",
 			headers: {
-				"X-RapidAPI-Key": `${r_one}`,
+				"X-RapidAPI-Key": `${rapid}`,
 				"X-RapidAPI-Host": `${host}`,
 			},
 		};
@@ -40,16 +36,16 @@ const MainSection = () => {
 	async function fetchScreenShot() {
 		// const { width, height, full_page } = area;
 		const { full_page, format } = area;
-		const r_two_url = `https://screenshot-maker.p.rapidapi.com/browser/screenshot/_take?`;
+		const rapid_two = `https://screenshot-maker.p.rapidapi.com/browser/screenshot/_take?`;
 		const abstract_url = `https://screenshot.abstractapi.com/v1/?`;
 		const flash_url = `https://api.apiflash.com/v1/urltoimage?`;
 		const pikwy_url = `https://api.pikwy.com?`;
 
 		const height = 1024;
 		const width = 300;
-		const urlLink = `https://www.w3schools.com/tags/ref_httpmessages.asp`;
-		const r_two_fetch = {
-			url: `${r_two_url}targetUrl=${urlLink}&pageWidth=${width}&pageHeight=${height}&clickDelay=500&deviceScaleFactor=1&clickDelay=500&clickCount=1`,
+		const urlLink = `https://vickkk-crypto-compare.netlify.app/`;
+		const rapid_fetch = {
+			url: `${rapid_two}targetUrl=${urlLink}&pageWidth=${width}&pageHeight=${height}&clickDelay=500&deviceScaleFactor=1&clickDelay=500&clickCount=1`,
 			option: Options("screenshot-maker.p.rapidapi.com"),
 		};
 		const abstract_fetch = {
@@ -58,7 +54,7 @@ const MainSection = () => {
 			}`,
 		};
 		const flash_fetch = {
-			url: `${flash_url}access_key=${flash}&delay=5&wait_until=dom_loaded&url=${urlLink}&format=${format}&full_page=${
+			url: `${flash_url}access_key=${flash}&format=${format}&delay=5&wait_until=dom_loaded&url=${urlLink}&full_page=${
 				full_page === false ? false : true
 			}`,
 		};
@@ -68,6 +64,7 @@ const MainSection = () => {
 		};
 		try {
 			fetch(flash_fetch.url)
+				// first fetch
 				.then((responseOne) => {
 					return responseOne.blob();
 				})
@@ -75,46 +72,41 @@ const MainSection = () => {
 					const url = URL.createObjectURL(data);
 					setImage(url);
 				})
-				.catch((error) => {
-					console.log(error);
-
-					// fetch(pikwy_fetch.url, {
-					// 	method: pikwy_fetch.method,
-					// })
-					// 	.then((responseOne) => {
-					// 		return responseOne.blob();
-					// 	})
-					// 	.then((data) => {
-					// 		const url = URL.createObjectURL(data);
-					// 		setImage(url);
-					// 	})
-					// 	.then((error) => {
-					// 		console.log(error);
-
-					// fetch(r_one_fetch.url, r_one_fetch.option)
-					// 	.then((responseOne) => {
-					// 		return responseOne.json();
-					// 	})
-					// 	.then((data) => console.log(data))
-					// 	.catch((error) => {
-					// 		console.log(error); // error from fetch one
-					// 		fetch(abstract_fetch.url)
-					// 			.then((response) => response.blob())
-					// 			.then((imageObj) => {
-					// 				const imageURL = URL.createObjectURL(imageObj);
-					// 			})
-					// 			.catch((error) => {
-					// 				console.log(error); // error 2
-					// 				fetch(r_two_fetch.url, r_two_url.option)
-					// 					.then((responseTwo) => {
-					// 						responseTwo.json();
-					// 					})
-					// 					.then((responseTwoData) => console.log(responseTwoData))
-					// 					.catch((error) => {
-					// 						console.log(error); //error 3
-					// 					});
-					// 			});
-					// 	});
+				.catch(() => {
+					// second fetch
+					fetch(pikwy_fetch.url, {
+						method: pikwy_fetch.method,
+					})
+						.then((responseOne) => {
+							return responseOne.blob();
+						})
+						.then((data) => {
+							const url = URL.createObjectURL(data);
+							setImage(url);
+						})
+						.then(() => {
+							// third fetch option
+							fetch(abstract_fetch.url)
+								.then((response) => response.blob())
+								.then((imageObj) => {
+									const imageURL = URL.createObjectURL(imageObj);
+									setImage(imageURL);
+								})
+								.catch(() => {
+									// fourth fetch option
+									fetch(rapid_fetch.url, rapid_fetch.option)
+										.then((responseTwo) => {
+											return responseTwo.json();
+										})
+										.then((responseTwoData) => {
+											const { imageUrl } = responseTwoData;
+											setImage(imageUrl);
+										})
+										.catch((error) => {
+											console.log(error);
+										});
+								});
+						});
 				});
 		} catch (error) {
 			console.log(error);

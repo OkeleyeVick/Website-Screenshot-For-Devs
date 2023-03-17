@@ -9,7 +9,6 @@ const Dropdown = () => {
 		const [width, height] = areaValue.split(" ")[0].split("x");
 		return { width, height };
 	}
-
 	return (
 		<div
 			className={`rounded-md shadow-custom py-2 px-2 absolute top-100 z-50 w-full transition duration-300 ease-in-out bg-white ${

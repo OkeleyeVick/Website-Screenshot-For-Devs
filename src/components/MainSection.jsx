@@ -2,7 +2,6 @@ import { Icon } from "@iconify/react";
 import React, { createContext, useRef, useState } from "react";
 import Dropdown from "../assets/UI-components/Dropdown";
 import Loader from "../assets/UI-components/Loader";
-import Option from "../assets/UI-components/Option";
 import Button from "../assets/UI-components/Button";
 import "../assets/animations/animation.css";
 
@@ -12,21 +11,22 @@ const abstract = import.meta.env.VITE_ABSTRACT_API_KEY;
 const r_one = import.meta.env.VITE_RAPID_KEY;
 
 const MainSection = () => {
-	const [screenSizeDropdown, setSecreenSizeDropdown] = useState(false);
-	const [formatDropdown, setFormatDropdown] = useState(false);
-	const [loading, setLoading] = useState(false);
-	const [urlLink, setURLlink] = useState("");
+	const [screenSizeDropdown, setSecreenSizeDropdown] = useState(false); // dropdown for selection for screenshot size
+	const [formatDropdown, setFormatDropdown] = useState(false); //format whether in jpeg or png format
+	const [loading, setLoading] = useState(false); //loader when fetch is running under the hood
+	const [urlLink, setURLlink] = useState(""); //url passed by user
 	const [area, setArea] = useState({
 		width: null,
 		height: null,
 		full_page: false,
-	});
+	}); //also info passed by user
 
 	const urlRef = useRef();
 
 	function Options(host) {
 		return {
 			method: "GET",
+			"Content-Type": "application/json",
 			headers: {
 				"X-RapidAPI-Key": `${r_one}`,
 				"X-RapidAPI-Host": `${host}`,
@@ -34,42 +34,62 @@ const MainSection = () => {
 		};
 	}
 
-	function checkFetchWithNoErrorOnlySuccess(fetchObject) {
-		const url = fetchObject?.url;
-		const option = fetchObject?.option;
-	}
 	async function fetchScreenShot() {
-		const { width, height, full_page } = area;
+		// const { width, height, full_page } = area;
+		const { full_page } = area;
+		const r_one_url = `https://screenshot-url-to-image.p.rapidapi.com/screenshot?`;
+		const r_two_url = `https://screenshot-maker.p.rapidapi.com/browser/screenshot/_take?`;
+		const abstract_url = `https://screenshot.abstractapi.com/v1/?`;
+
+		const height = 1024;
+		const width = 300;
+		const urlLink = `https://v-language-translator.netlify.app/`;
+		const r_two_fetch = {
+			url: `${r_two_url}targetUrl=${urlLink}&pageWidth=${width}&pageHeight=${height}&clickDelay=5000`,
+			option: Options("screenshot-maker.p.rapidapi.com"),
+		};
+		const r_one_fetch = {
+			url: `${r_one_url}url=${urlLink}&width=${width}&height=${height}`,
+			option: Options("screenshot-url-to-image.p.rapidapi.com"),
+		};
+		const abstract_fetch = {
+			url: `${abstract_url}api_key=${abstract}&url=${urlLink}&width=${width}&height=${height}&delay=5&capture_full_page=${
+				full_page === false ? false : true
+			}`,
+		};
 		try {
-			const r_one_url = `https://screenshot-url-to-image.p.rapidapi.com/screenshot?`;
-			const r_two_url = `https://screenshot-maker.p.rapidapi.com/browser/screenshot/_take?`;
-			const abstract_url = `https://screenshot.abstractapi.com/v1/?`;
-
-			const r_two_fetch = {
-				url: `${r_two_url}targetUrl=${urlLink}&pageWidth=${width}&pageHeight=${height}&clickDelay=5000`,
-				option: Options("screenshot-maker.p.rapidapi.com"),
-			};
-			const r_one_fetch = {
-				url: `${r_one_url}url=${urlLink}&width=${width}&height=${height}`,
-				option: Options("screenshot-url-to-image.p.rapidapi.com"),
-			};
-			const abstract_fetch = {
-				url: `${abstract_url}api_key=${abstract}&url=${urlLink}&width=${width}&height=${height}&delay=5&capture_full_page=${
-					full_page === false ? false : true
-				}`,
-			};
-
-			const arrayOfFetches = [r_two_fetch, r_one_fetch, abstract_fetch];
-			arrayOfFetches.forEach((fetchObject) => {
-				checkFetchWithNoErrorOnlySuccess(fetchObject);
-			});
+			fetch(r_one_fetch.url, r_one_fetch.option)
+				.then((responseOne) => {
+					return responseOne.json();
+				})
+				.then((data) => console.log(data))
+				.catch((error) => {
+					console.log(error); // error from fetch one
+					fetch(abstract_fetch.url)
+						.then((reponse) => reponse.blob())
+						.then((imageObj) => {
+							const imageURL = URL.createObjectURL(imageObj);
+						})
+						.catch((error) => {
+							console.log(error); // error 2
+							fetch(r_two_fetch.url, r_two_url.option)
+								.then((responseTwo) => {
+									responseTwo.json();
+								})
+								.then((responseTwoData) => console.log(responseTwoData))
+								.catch((error) => {
+									console.log(error); //error 3
+								});
+						});
+				});
 		} catch (error) {
 			console.log(error);
 		}
 	}
 
 	function handleSubmission() {
-		fetchScreenShot();
+		const p = fetchScreenShot();
+		console.log(p);
 		setLoading(false);
 	}
 

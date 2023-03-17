@@ -5,6 +5,7 @@ import Loader from "../assets/UI-components/Loader";
 import Button from "../assets/UI-components/Button";
 import "../assets/animations/animation.css";
 import { abstract, rapid, pikwy, flash } from "./utils/keys";
+import Image from "../assets/images/image-3d.png";
 
 export const sizeContext = createContext();
 
@@ -13,13 +14,14 @@ const MainSection = () => {
 	const [formatDropdown, setFormatDropdown] = useState(false); //format whether in jpeg or png format
 	const [loading, setLoading] = useState(false); //loader when fetch is running under the hood
 	const [urlLink, setURLlink] = useState(""); //url passed by user
-	const [area, setArea] = useState({
+	const [urlParameters, setUrlParameters] = useState({
 		width: null,
 		height: null,
 		full_page: false,
 		format: `jpeg`,
 	}); //also info passed by user
-	const [image, setImage] = useState();
+	const [imageLink, setImageLink] = useState("");
+	const [error, setError] = useState(); //setting error state everywhere
 
 	const urlRef = useRef();
 
@@ -33,9 +35,17 @@ const MainSection = () => {
 		};
 	}
 
+	const setLoadingStateTrue = () => {
+		return setLoading(true);
+	};
+	const setLoadingStateFalse = () => {
+		return setLoading(false);
+	};
+
 	async function fetchScreenShot() {
-		// const { width, height, full_page } = area;
-		const { full_page, format } = area;
+		setLoadingStateTrue();
+		// const { width, height, full_page } = urlParameters;
+		const { full_page, format } = urlParameters;
 		const rapid_two = `https://screenshot-maker.p.rapidapi.com/browser/screenshot/_take?`;
 		const abstract_url = `https://screenshot.abstractapi.com/v1/?`;
 		const flash_url = `https://api.apiflash.com/v1/urltoimage?`;
@@ -43,7 +53,7 @@ const MainSection = () => {
 
 		const height = 1024;
 		const width = 300;
-		const urlLink = `https://vickkk-crypto-compare.netlify.app/`;
+		const urlLink = `https://github.com/OkeleyeVick/Website-Screenshot-For-Devs/commit/1014abf7401af316b6c5956bf6db955f9888963d`;
 		const rapid_fetch = {
 			url: `${rapid_two}targetUrl=${urlLink}&pageWidth=${width}&pageHeight=${height}&clickDelay=500&deviceScaleFactor=1&clickDelay=500&clickCount=1`,
 			option: Options("screenshot-maker.p.rapidapi.com"),
@@ -54,7 +64,7 @@ const MainSection = () => {
 			}`,
 		};
 		const flash_fetch = {
-			url: `${flash_url}access_key=${flash}&format=${format}&delay=5&wait_until=dom_loaded&url=${urlLink}&full_page=${
+			url: `${flash_url}access_key=${flash}&format=${format}&	delay=5&wait_until=dom_loaded&url=${urlLink}&full_page=${
 				full_page === false ? false : true
 			}`,
 		};
@@ -69,8 +79,9 @@ const MainSection = () => {
 					return responseOne.blob();
 				})
 				.then((data) => {
+					setLoadingStateFalse();
 					const url = URL.createObjectURL(data);
-					setImage(url);
+					setImageLink(url);
 				})
 				.catch(() => {
 					// second fetch
@@ -81,16 +92,18 @@ const MainSection = () => {
 							return responseOne.blob();
 						})
 						.then((data) => {
+							setLoadingStateFalse();
 							const url = URL.createObjectURL(data);
-							setImage(url);
+							setImageLink(url);
 						})
 						.then(() => {
 							// third fetch option
 							fetch(abstract_fetch.url)
 								.then((response) => response.blob())
 								.then((imageObj) => {
+									setLoadingStateFalse();
 									const imageURL = URL.createObjectURL(imageObj);
-									setImage(imageURL);
+									setImageLink(imageURL);
 								})
 								.catch(() => {
 									// fourth fetch option
@@ -99,8 +112,9 @@ const MainSection = () => {
 											return responseTwo.json();
 										})
 										.then((responseTwoData) => {
+											setLoadingStateFalse();
 											const { imageUrl } = responseTwoData;
-											setImage(imageUrl);
+											setImageLink(imageUrl);
 										})
 										.catch((error) => {
 											console.log(error);
@@ -109,22 +123,18 @@ const MainSection = () => {
 						});
 				});
 		} catch (error) {
+			setLoadingStateFalse();
 			console.log(error);
 		}
 	}
 
 	function handleSubmission() {
 		fetchScreenShot();
-		setLoading(false);
 	}
 
 	return (
 		<sizeContext.Provider
 			value={{ handleSubmission, screenSizeDropdown, setSecreenSizeDropdown, formatDropdown, setFormatDropdown, loading, setLoading }}>
-			<img src={image} alt="" />
-			<a href={image} download>
-				Download
-			</a>
 			<section className="md:grid md:grid-cols-7 mt-8 relative">
 				<div className="col-start-2 col-end-7 ">
 					<div className="text-start">
@@ -206,6 +216,24 @@ const MainSection = () => {
 							</div>
 						</div>
 					</form>
+				</div>
+				<div className="col-start-2 col-end-7 mt-16">
+					<div className="">
+						{imageLink && (
+							<div>
+								<a
+									href={imageLink}
+									download
+									className="bg-main flex items-center gap-2 w-max text-white py-3 px-6 transition duration-200 ease-in-out rounded-md">
+									<Icon icon="line-md:downloading-loop" className="w-7 h-7" />
+									<span className="text-sm">Download</span>
+								</a>
+								<div className="mt-16 text-center">
+									<img src={imageLink} alt="" className="w-full h-full" />
+								</div>
+							</div>
+						)}
+					</div>
 				</div>
 			</section>
 			<div>{loading ? <Loader /> : null}</div>

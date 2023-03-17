@@ -5,7 +5,6 @@ import Loader from "../assets/UI-components/Loader";
 import Button from "../assets/UI-components/Button";
 import "../assets/animations/animation.css";
 import { abstract, rapid, pikwy, flash } from "./utils/keys";
-import Image from "../assets/images/image-3d.png";
 
 export const sizeContext = createContext();
 
@@ -14,6 +13,8 @@ const MainSection = () => {
 	const [formatDropdown, setFormatDropdown] = useState(false); //format whether in jpeg or png format
 	const [loading, setLoading] = useState(false); //loader when fetch is running under the hood
 	const [urlLink, setURLlink] = useState(""); //url passed by user
+	const [imageFormatButtonState, setimageFormatButtonState] = useState(); // toggle format dropdown button active states
+	const [resolutionState, setResolutionState] = useState(); // toggle res dropdown button active states
 	const [urlParameters, setUrlParameters] = useState({
 		width: null,
 		height: null,
@@ -36,14 +37,13 @@ const MainSection = () => {
 	}
 
 	const setLoadingStateTrue = () => {
-		return setLoading(true);
+		setLoading(true);
 	};
 	const setLoadingStateFalse = () => {
-		return setLoading(false);
+		setLoading(false);
 	};
 
 	async function fetchScreenShot() {
-		setLoadingStateTrue();
 		// const { width, height, full_page } = urlParameters;
 		const { full_page, format } = urlParameters;
 		const rapid_two = `https://screenshot-maker.p.rapidapi.com/browser/screenshot/_take?`;
@@ -76,6 +76,7 @@ const MainSection = () => {
 			fetch(flash_fetch.url)
 				// first fetch
 				.then((responseOne) => {
+					setLoadingStateTrue();
 					return responseOne.blob();
 				})
 				.then((data) => {
@@ -131,6 +132,16 @@ const MainSection = () => {
 	function handleSubmission() {
 		fetchScreenShot();
 	}
+	const handleSetImageFormat = (imageFormat, index) => {
+		setimageFormatButtonState(index);
+		setFormatDropdown(false);
+		const JPEGformatOrImageFormat = index === 0 ? imageFormat.split("/")[0].trim() : imageFormat;
+		const newState = {
+			...urlParameters,
+			format: JPEGformatOrImageFormat.split(".")[1],
+		};
+		setUrlParameters(newState);
+	};
 
 	return (
 		<sizeContext.Provider
@@ -141,6 +152,7 @@ const MainSection = () => {
 						<small className="text-sm">Enter Website URL</small>
 					</div>
 					<form action="" onSubmit={handleSubmission}>
+						{console.log(urlParameters)}
 						<div className="">
 							<input
 								type="url"
@@ -156,7 +168,7 @@ const MainSection = () => {
 										<div className="relative mt-1 ">
 											<button
 												type="button"
-												className="flex items-center justify-between w-full p-3 rounded-md bg-gray-100"
+												className="flex items-center justify-between w-full p-3 rounded-md bg-gray-100 hover:bg-gray-300 transition duration-300 ease-in-out"
 												onClick={() => {
 													setSecreenSizeDropdown((prev) => !prev);
 												}}>
@@ -171,7 +183,7 @@ const MainSection = () => {
 										<div className="relative mt-1">
 											<button
 												type="button"
-												className="flex items-center justify-between w-full p-3 rounded-md bg-gray-100"
+												className="flex items-center justify-between w-full p-3 rounded-md bg-gray-100 hover:bg-gray-300 transition duration-300 ease-in-out"
 												onClick={() => setFormatDropdown((prev) => !prev)}>
 												<span className="text-sm">.jpeg</span>
 												<Icon icon="ph:caret-up-down-light" />
@@ -184,7 +196,23 @@ const MainSection = () => {
 												}`}>
 												<input type="hidden" value=".jpeg" className="size_format" />
 												<div className="mb-2">
-													<ul className="flex flex-col items-start"></ul>
+													<ul className="flex flex-col items-start gap-y-[3px]">
+														{[".jpeg / .jpg", ".png", ".webp"].map((format, index) => {
+															return (
+																<button
+																	type="button"
+																	onClick={() => handleSetImageFormat(format, index)}
+																	className={`text-xs transition ease-in-out duration-200 hover:bg-main hover:bg-opacity-50 w-full text-start py-2 px-3 rounded-md hover:text-white ${
+																		imageFormatButtonState === index
+																			? "bg-main text-white hover:bg-opacity-100"
+																			: "bg-transparent"
+																	}`}
+																	key={index}>
+																	{format}
+																</button>
+															);
+														})}
+													</ul>
 												</div>
 											</div>
 										</div>
@@ -226,7 +254,7 @@ const MainSection = () => {
 									download
 									className="bg-main flex items-center gap-2 w-max text-white py-3 px-6 transition duration-200 ease-in-out rounded-md">
 									<Icon icon="line-md:downloading-loop" className="w-7 h-7" />
-									<span className="text-sm">Download</span>
+									<span className="text-sm">Download Image</span>
 								</a>
 								<div className="mt-16 text-center border rounded-sm border-main">
 									<img src={imageLink} alt="" className="w-full h-full" />

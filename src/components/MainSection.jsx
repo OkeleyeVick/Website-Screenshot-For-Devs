@@ -17,7 +17,9 @@ const MainSection = () => {
 	const [loading, setLoading] = useState(false);
 	const [urlLink, setURLlink] = useState("");
 	const [area, setArea] = useState({
-		// height:
+		width: null,
+		height: null,
+		full_page: false,
 	});
 
 	const urlRef = useRef();
@@ -32,20 +34,40 @@ const MainSection = () => {
 		};
 	}
 
-	async function fetchScreenShot() {
-		const r_one_url = `https://screenshot-url-to-image.p.rapidapi.com/screenshot?`;
-		const r_two_url = `https://screenshot-maker.p.rapidapi.com/browser/screenshot/_take?`;
-		const abstract_url = `https://screenshot.abstractapi.com/v1/?`;
-
-		try {
-			const abstract_fetch = await fetch(`${abstract_url}api_key=${abstract}&url=${urlLink}`);
-			const r_one_fetch = await fetch(`${r_one_url}url=${urlLink}&width=${width}&height=${height}`, Options("screenshot-maker.p.rapidapi.com"));
-			const r_two_fetch = await fetch(
-				`${r_two_url}targetUrl=${urlLink}&pageWidth=${width}&pageHeight=${height}&clickDelay=4000`,
-				Options("screenshot-url-to-image.p.rapidapi.com")
-			);
-		} catch (error) {}
+	function checkFetchWithNoErrorOnlySuccess(fetchObject) {
+		const url = fetchObject?.url;
+		const option = fetchObject?.option;
 	}
+	async function fetchScreenShot() {
+		const { width, height, full_page } = area;
+		try {
+			const r_one_url = `https://screenshot-url-to-image.p.rapidapi.com/screenshot?`;
+			const r_two_url = `https://screenshot-maker.p.rapidapi.com/browser/screenshot/_take?`;
+			const abstract_url = `https://screenshot.abstractapi.com/v1/?`;
+
+			const r_two_fetch = {
+				url: `${r_two_url}targetUrl=${urlLink}&pageWidth=${width}&pageHeight=${height}&clickDelay=5000`,
+				option: Options("screenshot-maker.p.rapidapi.com"),
+			};
+			const r_one_fetch = {
+				url: `${r_one_url}url=${urlLink}&width=${width}&height=${height}`,
+				option: Options("screenshot-url-to-image.p.rapidapi.com"),
+			};
+			const abstract_fetch = {
+				url: `${abstract_url}api_key=${abstract}&url=${urlLink}&width=${width}&height=${height}&delay=5&capture_full_page=${
+					full_page === false ? false : true
+				}`,
+			};
+
+			const arrayOfFetches = [r_two_fetch, r_one_fetch, abstract_fetch];
+			arrayOfFetches.forEach((fetchObject) => {
+				checkFetchWithNoErrorOnlySuccess(fetchObject);
+			});
+		} catch (error) {
+			console.log(error);
+		}
+	}
+
 	function handleSubmission() {
 		fetchScreenShot();
 		setLoading(false);

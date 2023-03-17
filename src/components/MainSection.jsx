@@ -9,6 +9,8 @@ export const sizeContext = createContext();
 
 const abstract = import.meta.env.VITE_ABSTRACT_API_KEY;
 const r_one = import.meta.env.VITE_RAPID_KEY;
+const pikwy = import.meta.env.VITE_PIKWY_API_KEY;
+const flash = import.meta.env.VITE_FLASH_API_KEY;
 
 const MainSection = () => {
 	const [screenSizeDropdown, setSecreenSizeDropdown] = useState(false); // dropdown for selection for screenshot size
@@ -19,14 +21,15 @@ const MainSection = () => {
 		width: null,
 		height: null,
 		full_page: false,
+		format: "jpeg",
 	}); //also info passed by user
+	const [image, setImage] = useState();
 
 	const urlRef = useRef();
 
 	function Options(host) {
 		return {
 			method: "GET",
-			"Content-Type": "application/json",
 			headers: {
 				"X-RapidAPI-Key": `${r_one}`,
 				"X-RapidAPI-Host": `${host}`,
@@ -36,8 +39,7 @@ const MainSection = () => {
 
 	async function fetchScreenShot() {
 		// const { width, height, full_page } = area;
-		const { full_page } = area;
-		const r_one_url = `https://screenshot-url-to-image.p.rapidapi.com/screenshot?`;
+		const { full_page, format } = area;
 		const r_two_url = `https://screenshot-maker.p.rapidapi.com/browser/screenshot/_take?`;
 		const abstract_url = `https://screenshot.abstractapi.com/v1/?`;
 
@@ -45,42 +47,72 @@ const MainSection = () => {
 		const width = 300;
 		const urlLink = `https://v-language-translator.netlify.app/`;
 		const r_two_fetch = {
-			url: `${r_two_url}targetUrl=${urlLink}&pageWidth=${width}&pageHeight=${height}&clickDelay=5000`,
+			url: `${r_two_url}targetUrl=${urlLink}&pageWidth=${width}&pageHeight=${height}&clickDelay=500&deviceScaleFactor=1&clickDelay=500&clickCount=1`,
 			option: Options("screenshot-maker.p.rapidapi.com"),
-		};
-		const r_one_fetch = {
-			url: `${r_one_url}url=${urlLink}&width=${width}&height=${height}`,
-			option: Options("screenshot-url-to-image.p.rapidapi.com"),
 		};
 		const abstract_fetch = {
 			url: `${abstract_url}api_key=${abstract}&url=${urlLink}&width=${width}&height=${height}&delay=5&capture_full_page=${
 				full_page === false ? false : true
 			}`,
 		};
+		const flash_fetch = {
+			url: `https://api.apiflash.com/v1/urltoimage?access_key=${flash}&wait_until=page_loaded&url=${urlLink}&format=${format}&full_page=${
+				full_page === false ? false : true
+			}`,
+		};
+		const pikwy_fetch = {
+			url: `https://api.pikwy.com?u=${urlLink}&tkn=${pikwy}&width=${width}&height=${height}&delay=5000&full_page${full_page === false ? 0 : 1}`,
+			method: "GET",
+		};
 		try {
-			fetch(r_one_fetch.url, r_one_fetch.option)
+			fetch(flash_fetch.url)
 				.then((responseOne) => {
-					return responseOne.json();
+					return responseOne.blob();
 				})
-				.then((data) => console.log(data))
-				.catch((error) => {
-					console.log(error); // error from fetch one
-					fetch(abstract_fetch.url)
-						.then((reponse) => reponse.blob())
-						.then((imageObj) => {
-							const imageURL = URL.createObjectURL(imageObj);
-						})
-						.catch((error) => {
-							console.log(error); // error 2
-							fetch(r_two_fetch.url, r_two_url.option)
-								.then((responseTwo) => {
-									responseTwo.json();
-								})
-								.then((responseTwoData) => console.log(responseTwoData))
-								.catch((error) => {
-									console.log(error); //error 3
-								});
-						});
+				.then((data) => {
+					const url = URL.createObjectURL(data);
+					setImage(url);
+				})
+				.then((error) => {
+					console.log(error);
+
+					// fetch(pikwy_fetch.url, {
+					// 	method: pikwy_fetch.method,
+					// })
+					// 	.then((responseOne) => {
+					// 		return responseOne.blob();
+					// 	})
+					// 	.then((data) => {
+					// 		const url = URL.createObjectURL(data);
+					// 		setImage(url);
+					// 	})
+					// 	.then((error) => {
+					// 		console.log(error);
+
+					// fetch(r_one_fetch.url, r_one_fetch.option)
+					// 	.then((responseOne) => {
+					// 		return responseOne.json();
+					// 	})
+					// 	.then((data) => console.log(data))
+					// 	.catch((error) => {
+					// 		console.log(error); // error from fetch one
+					// 		fetch(abstract_fetch.url)
+					// 			.then((response) => response.blob())
+					// 			.then((imageObj) => {
+					// 				const imageURL = URL.createObjectURL(imageObj);
+					// 			})
+					// 			.catch((error) => {
+					// 				console.log(error); // error 2
+					// 				fetch(r_two_fetch.url, r_two_url.option)
+					// 					.then((responseTwo) => {
+					// 						responseTwo.json();
+					// 					})
+					// 					.then((responseTwoData) => console.log(responseTwoData))
+					// 					.catch((error) => {
+					// 						console.log(error); //error 3
+					// 					});
+					// 			});
+					// 	});
 				});
 		} catch (error) {
 			console.log(error);
@@ -88,14 +120,17 @@ const MainSection = () => {
 	}
 
 	function handleSubmission() {
-		const p = fetchScreenShot();
-		console.log(p);
+		fetchScreenShot();
 		setLoading(false);
 	}
 
 	return (
 		<sizeContext.Provider
 			value={{ handleSubmission, screenSizeDropdown, setSecreenSizeDropdown, formatDropdown, setFormatDropdown, loading, setLoading }}>
+			<img src={image} alt="" />
+			<a href={image} download>
+				Download
+			</a>
 			<section className="md:grid md:grid-cols-7 mt-8 relative">
 				<div className="col-start-2 col-end-7 ">
 					<div className="text-start">

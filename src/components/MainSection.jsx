@@ -20,7 +20,7 @@ const MainSection = () => {
 		full_page: false,
 		format: `jpeg`,
 	}); //also info passed by user
-	const [imageLink, setImageLink] = useState("");
+	const [imageLink, setImageLink] = useState(""); //link gotten from api
 	const [error, setError] = useState(); //setting error state everywhere
 
 	const urlRef = useRef();
@@ -228,7 +228,7 @@ const MainSection = () => {
 									<Icon icon="line-md:downloading-loop" className="w-7 h-7" />
 									<span className="text-sm">Download</span>
 								</a>
-								<div className="mt-16 text-center">
+								<div className="mt-16 text-center border rounded-sm border-main">
 									<img src={imageLink} alt="" className="w-full h-full" />
 								</div>
 							</div>

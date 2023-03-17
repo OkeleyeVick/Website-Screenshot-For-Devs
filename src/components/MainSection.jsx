@@ -42,10 +42,12 @@ const MainSection = () => {
 		const { full_page, format } = area;
 		const r_two_url = `https://screenshot-maker.p.rapidapi.com/browser/screenshot/_take?`;
 		const abstract_url = `https://screenshot.abstractapi.com/v1/?`;
+		const flash_url = `https://api.apiflash.com/v1/urltoimage?`;
+		const pikwy_url = `https://api.pikwy.com?`;
 
 		const height = 1024;
 		const width = 300;
-		const urlLink = `https://v-language-translator.netlify.app/`;
+		const urlLink = `https://www.w3schools.com/tags/ref_httpmessages.asp`;
 		const r_two_fetch = {
 			url: `${r_two_url}targetUrl=${urlLink}&pageWidth=${width}&pageHeight=${height}&clickDelay=500&deviceScaleFactor=1&clickDelay=500&clickCount=1`,
 			option: Options("screenshot-maker.p.rapidapi.com"),
@@ -56,12 +58,12 @@ const MainSection = () => {
 			}`,
 		};
 		const flash_fetch = {
-			url: `https://api.apiflash.com/v1/urltoimage?access_key=${flash}&wait_until=page_loaded&url=${urlLink}&format=${format}&full_page=${
+			url: `${flash_url}access_key=${flash}&delay=5&wait_until=dom_loaded&url=${urlLink}&format=${format}&full_page=${
 				full_page === false ? false : true
 			}`,
 		};
 		const pikwy_fetch = {
-			url: `https://api.pikwy.com?u=${urlLink}&tkn=${pikwy}&width=${width}&height=${height}&delay=5000&full_page${full_page === false ? 0 : 1}`,
+			url: `${pikwy_url}u=${urlLink}&tkn=${pikwy}&width=${width}&height=${height}&delay=5000&full_page${full_page === false ? 0 : 1}`,
 			method: "GET",
 		};
 		try {
@@ -73,7 +75,7 @@ const MainSection = () => {
 					const url = URL.createObjectURL(data);
 					setImage(url);
 				})
-				.then((error) => {
+				.catch((error) => {
 					console.log(error);
 
 					// fetch(pikwy_fetch.url, {

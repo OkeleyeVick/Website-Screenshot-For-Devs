@@ -19,17 +19,11 @@ function App() {
 					}`}>
 					<div className="border-b py-4 px-5 flex items-center">
 						<span className="text-base font-extrabold">Status: </span>
-						<span className={`flex-grow text-lg font-extrabold uppercase text-center ${!isOnline ? "text-[#DD2E44]" : "text-[#2a954a]"}`}>
+						<span className={`ml-2 text-lg font-extrabold uppercase text-center ${!isOnline ? "text-[#DD2E44]" : "text-[#2a954a]"}`}>
 							{isOnline ? "Online" : "Offline"}
 						</span>
 					</div>
-					<div className="flex items-center flex-col justify-center gap-y-8 p-5">
-						<div className="bg-slate-200 rounded-full p-3">
-							<Icon
-								icon={`${!isOnline ? "ph:wifi-slash" : "ph:wifi-high"}`}
-								className={`w-8 h-8 flex text ${!isOnline ? "text-[#DD2E44]" : "text-[#2a954a]"}`}
-							/>
-						</div>
+					<div className="flex items-center flex-col justify-center gap-y-8 p-5 text-center">
 						<div>
 							<span className="text-xl">You are currently {isOnline ? "Online 😁" : "Offline 😥"}</span>
 						</div>

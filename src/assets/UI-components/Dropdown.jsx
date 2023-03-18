@@ -3,7 +3,7 @@ import { sizeContext } from "../../components/MainSection";
 import Option from "./Option";
 
 const Dropdown = () => {
-	const { screenSizeDropdown, setSecreenSizeDropdown } = useContext(sizeContext);
+	const { screenSizeDropdown } = useContext(sizeContext);
 
 	function getLengthHeight(areaValue) {
 		const [width, height] = areaValue.split(" ")[0].split("x");

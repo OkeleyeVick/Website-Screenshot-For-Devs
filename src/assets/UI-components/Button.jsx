@@ -3,7 +3,7 @@ import React, { useContext } from "react";
 import { sizeContext } from "../../components/MainSection";
 
 const Button = () => {
-	const { handleSubmission, screenSizeDropdown, setSecreenSizeDropdown, formatDropdown, setFormatDropdown, setLoading } = useContext(sizeContext);
+	const { handleSubmission } = useContext(sizeContext);
 
 	function handleScreenshot(e) {
 		e.preventDefault();

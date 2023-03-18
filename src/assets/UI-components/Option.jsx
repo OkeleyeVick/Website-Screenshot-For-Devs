@@ -2,15 +2,8 @@ import React, { useContext } from "react";
 import { sizeContext } from "../../components/MainSection";
 
 const Option = ({ children, area }) => {
-	const {
-		resolutionTextvalue,
-		setResolutionTextValue,
-		setSecreenSizeDropdown,
-		resolutionState,
-		setResolutionState,
-		urlParameters,
-		setUrlParameters,
-	} = useContext(sizeContext);
+	const { setResolutionTextValue, setSecreenSizeDropdown, resolutionState, setResolutionState, urlParameters, setUrlParameters } =
+		useContext(sizeContext);
 	const { width, height, index, containerIndex } = area;
 
 	const handleSetFormatState = (height, width, index, containerIndex) => {

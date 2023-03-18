@@ -55,7 +55,9 @@ const MainSection = () => {
 		const pikwy_url = `https://api.pikwy.com?`;
 
 		const rapid_fetch = {
-			url: `${rapid_two}targetUrl=${urlLink}&pageWidth=${width}&pageHeight=${height}&clickDelay=500&deviceScaleFactor=1&clickDelay=500&clickCount=1`,
+			url: `${rapid_two}targetUrl=${urlLink}&pageWidth=${width}&pageHeight=${height}&clickDelay=5000&deviceScaleFactor=1&fullpage=${
+				full_page === false ? 0 : 1
+			}&clickDelay=500&clickCount=1`,
 			option: Options("screenshot-maker.p.rapidapi.com"),
 		};
 		const abstract_fetch = {
@@ -64,7 +66,7 @@ const MainSection = () => {
 			}`,
 		};
 		const flash_fetch = {
-			url: `${flash_url}access_key=${flash}&format=${format}&	delay=5&wait_until=dom_loaded&url=${urlLink}&full_page=${
+			url: `${flash_url}access_key=${flash}&format=${format}&delay=5&wait_until=dom_loaded&url=${urlLink}&full_page=${
 				full_page === false ? false : true
 			}`,
 		};
@@ -125,7 +127,7 @@ const MainSection = () => {
 				});
 		} catch (error) {
 			setLoadingStateFalse();
-			console.log(error);
+			setError("Error occurred, try again or report to developer");
 		}
 	}
 
@@ -247,21 +249,73 @@ const MainSection = () => {
 												aria-label="desktop"
 												name="screen-size-type"
 												className="bg-gray-200 w-6 h-6"
-												onChange={() => setUrlParameters}
+												onChange={() =>
+													setUrlParameters({
+														...urlParameters,
+														width: 1280,
+														height: 1024,
+														full_page: false,
+													})
+												}
 											/>
 											<span className="text-base">Desktop</span>
 										</label>
 									</div>
 									<div>
 										<label className="cont">
-											<input type="radio" aria-label="tablet" name="screen-size-type" className="bg-gray-200 w-6 h-6" />
+											<input
+												type="radio"
+												aria-label="tablet"
+												name="screen-size-type"
+												className="bg-gray-200 w-6 h-6"
+												onChange={() =>
+													setUrlParameters({
+														...urlParameters,
+														width: 768,
+														height: 1024,
+														full_page: false,
+													})
+												}
+											/>
 											<span className="text-base">Tablet</span>
 										</label>
 									</div>
 									<div>
 										<label className="cont">
-											<input type="radio" aria-label="mobile" name="screen-size-type" className="bg-gray-200 w-6 h-6" />
+											<input
+												type="radio"
+												aria-label="mobile"
+												name="screen-size-type"
+												className="bg-gray-200 w-6 h-6"
+												onChange={() =>
+													setUrlParameters({
+														...urlParameters,
+														width: 576,
+														height: 1024,
+														full_page: false,
+													})
+												}
+											/>
 											<span className="text-base">Mobile</span>
+										</label>
+									</div>
+									<div>
+										<label className="cont">
+											<input
+												type="radio"
+												aria-label="full-page"
+												name="screen-size-type"
+												className="bg-gray-200 w-6 h-6"
+												onChange={() =>
+													setUrlParameters({
+														...urlParameters,
+														width: "",
+														height: "",
+														full_page: true,
+													})
+												}
+											/>
+											<span className="text-base">Full Page</span>
 										</label>
 									</div>
 								</div>
@@ -283,7 +337,7 @@ const MainSection = () => {
 									<Icon icon="line-md:downloading-loop" className="w-7 h-7" />
 									<span className="text-sm">Download Image</span>
 								</a>
-								<div className="mt-16 text-center border rounded-sm border-main">
+								<div className="mt-16 text-center border rounded-md overflow-hidden border-main">
 									<img src={imageLink} alt="" className="w-full h-full" />
 								</div>
 							</div>

@@ -5,12 +5,19 @@ import Loader from "../assets/UI-components/Loader";
 import Button from "../assets/UI-components/Button";
 import "../assets/animations/animation.css";
 import { abstract, rapid, pikwy, flash } from "./utils/keys";
+import Error from "../assets/UI-components/Error";
 
 export const sizeContext = createContext();
 
 const MainSection = () => {
+	// error states ✅
 	// localStorage to set the link so that when they refresh, it gets what's there before
+	// online status
+	// start redux toolkit
+	// open source shiiii
+	// diff between yarn and npm
 
+	const [showErrorState, setShowErrorState] = useState(false);
 	const [screenSizeDropdown, setSecreenSizeDropdown] = useState(false); // dropdown for selection for screenshot size
 	const [formatDropdown, setFormatDropdown] = useState(false); //format whether in jpeg or png format
 	const [loading, setLoading] = useState(false); //loader when fetch is running under the hood
@@ -31,6 +38,12 @@ const MainSection = () => {
 
 	const urlRef = useRef();
 
+	function showThenHideErrorState() {
+		setShowErrorState(true);
+		setTimeout(() => {
+			setShowErrorState(false);
+		}, 5000);
+	}
 	function Options(host) {
 		return {
 			method: "GET",
@@ -40,9 +53,9 @@ const MainSection = () => {
 			},
 		};
 	}
-
 	const setLoadingStateTrue = () => {
 		setLoading(true);
+		setShowErrorState(false);
 	};
 	const setLoadingStateFalse = () => {
 		setLoading(false);
@@ -130,20 +143,26 @@ const MainSection = () => {
 		} catch (error) {
 			setLoadingStateFalse();
 			setError("Error occurred, try again or report to developer");
+			showThenHideErrorState();
 		}
 	}
 
 	function handleSubmission() {
 		if (urlRef.current.value.length === 0) {
-			console.log("Error");
 			setError("Input cannot be empty");
+			urlRef.current.focus();
+			setShowErrorState(true);
+			showThenHideErrorState();
 		} else if (urlRef.current.value.includes("https://" || "www." || "https//")) {
 			setLoading(true);
 			fetchScreenShot();
 		} else {
 			setError("Unexpected error occurred, try again or report to the developer");
+			setShowErrorState(true);
+			showThenHideErrorState();
 		}
 	}
+
 	const handleSetImageFormat = (imageFormat, index) => {
 		const viewFormat = document.querySelector("button .viewFormat");
 		viewFormat.innerHTML = imageFormat;
@@ -159,6 +178,10 @@ const MainSection = () => {
 	return (
 		<sizeContext.Provider
 			value={{
+				error,
+				showErrorState,
+				setShowErrorState,
+				setError,
 				resolutionTextvalue,
 				setResolutionTextValue,
 				urlParameters,
@@ -174,6 +197,9 @@ const MainSection = () => {
 				setLoading,
 			}}>
 			<section className="md:grid md:grid-cols-7 mt-8 relative">
+				<div className={`transition duration-300 ease-in-out ${showErrorState ? "opacity-100 pointer-events-none" : "opacity-0"}`}>
+					<Error />
+				</div>
 				<div className="col-start-2 col-end-7 ">
 					<div className="text-start">
 						<small className="text-sm">Enter Website URL</small>
@@ -340,14 +366,14 @@ const MainSection = () => {
 									<span className="text-sm">Download Image</span>
 								</a>
 								<div className="mt-16 text-center border rounded-md overflow-hidden border-main">
-									<img src={imageLink} alt="" className="w-full h-full" />
+									<img src={imageLink} alt="URL link entered" className="w-full h-full" />
 								</div>
 							</div>
 						)}
 					</div>
 				</div>
 			</section>
-			<div>{loading ? <Loader /> : null}</div>
+			{loading ? <Loader /> : null}
 		</sizeContext.Provider>
 	);
 };

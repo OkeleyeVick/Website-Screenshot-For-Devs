@@ -12,7 +12,6 @@ const MainSection = () => {
 	const [screenSizeDropdown, setSecreenSizeDropdown] = useState(false); // dropdown for selection for screenshot size
 	const [formatDropdown, setFormatDropdown] = useState(false); //format whether in jpeg or png format
 	const [loading, setLoading] = useState(false); //loader when fetch is running under the hood
-	const [urlLink, setURLlink] = useState(""); //url passed by user
 	const [imageFormatButtonState, setimageFormatButtonState] = useState(); // toggle format dropdown button active states
 	const [resolutionState, setResolutionState] = useState({
 		cIndex: null,
@@ -48,16 +47,13 @@ const MainSection = () => {
 	};
 
 	async function fetchScreenShot() {
-		// const { width, height, full_page } = urlParameters;
+		const urlLink = urlRef.current.value;
 		const { width, height, full_page, format } = urlParameters;
 		const rapid_two = `https://screenshot-maker.p.rapidapi.com/browser/screenshot/_take?`;
 		const abstract_url = `https://screenshot.abstractapi.com/v1/?`;
 		const flash_url = `https://api.apiflash.com/v1/urltoimage?`;
 		const pikwy_url = `https://api.pikwy.com?`;
 
-		// const height = 1024;
-		// const width = 300;
-		// const urlLink = `https://github.com/OkeleyeVick/Website-Screenshot-For-Devs/commit/1014abf7401af316b6c5956bf6db955f9888963d`;
 		const rapid_fetch = {
 			url: `${rapid_two}targetUrl=${urlLink}&pageWidth=${width}&pageHeight=${height}&clickDelay=500&deviceScaleFactor=1&clickDelay=500&clickCount=1`,
 			option: Options("screenshot-maker.p.rapidapi.com"),
@@ -137,8 +133,11 @@ const MainSection = () => {
 		if (urlRef.current.value.length === 0) {
 			console.log("Error");
 			setError("Input cannot be empty");
-		} else if (urlRef.current.value.includes("https://" || "www" || "https//")) {
-			console.log("yes it does");
+		} else if (urlRef.current.value.includes("https://" || "www." || "https//")) {
+			setLoading(true);
+			fetchScreenShot();
+		} else {
+			setError("Unexpected error occurred, try again or report to the developer");
 		}
 	}
 	const handleSetImageFormat = (imageFormat, index) => {

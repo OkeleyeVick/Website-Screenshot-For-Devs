@@ -269,14 +269,14 @@ const MainSection = () => {
 												aria-label="desktop"
 												name="screen-size-type"
 												className="bg-gray-200 w-6 h-6"
-												onChange={() =>
-													setUrlParameters({
+												onChange={() => {
+													return setUrlParameters({
 														...urlParameters,
 														width: 1280,
 														height: 1024,
 														full_page: false,
-													})
-												}
+													});
+												}}
 											/>
 											<span className="text-base">Desktop</span>
 										</label>
@@ -288,14 +288,14 @@ const MainSection = () => {
 												aria-label="tablet"
 												name="screen-size-type"
 												className="bg-gray-200 w-6 h-6"
-												onChange={() =>
-													setUrlParameters({
+												onChange={() => {
+													return setUrlParameters({
 														...urlParameters,
 														width: 768,
 														height: 900,
 														full_page: false,
-													})
-												}
+													});
+												}}
 											/>
 											<span className="text-base">Tablet</span>
 										</label>
@@ -307,14 +307,14 @@ const MainSection = () => {
 												aria-label="mobile"
 												name="screen-size-type"
 												className="bg-gray-200 w-6 h-6"
-												onChange={() =>
-													setUrlParameters({
+												onChange={() => {
+													return setUrlParameters({
 														...urlParameters,
 														width: 576,
 														height: 900,
 														full_page: false,
-													})
-												}
+													});
+												}}
 											/>
 											<span className="text-base">Mobile</span>
 										</label>
@@ -326,14 +326,14 @@ const MainSection = () => {
 												aria-label="full-page"
 												name="screen-size-type"
 												className="bg-gray-200 w-6 h-6"
-												onChange={() =>
-													setUrlParameters({
+												onChange={() => {
+													return setUrlParameters({
 														...urlParameters,
 														width: "",
 														height: "",
 														full_page: true,
-													})
-												}
+													});
+												}}
 											/>
 											<span className="text-base">Full Page</span>
 										</label>

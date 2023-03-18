@@ -10,11 +10,11 @@ function App() {
 	return (
 		<div className="px-3 md:8">
 			<div
-				className={`fixed z-50 inset-0 flex items-center justify-center transition duration-300 ease-linear ${
+				className={`fixed z-50 inset-0 flex items-center justify-center transition duration-300 ease-linear p-3 ${
 					isOnline ? "pointer-events-none opacity-0 delay-[1s]" : "glassmorphism opacity-100"
 				}`}>
 				<div
-					className={`bg-white rounded-md transition duration-300 ease-in-out w-3/5 ${
+					className={`bg-white rounded-md transition duration-300 ease-in-out w-full md:w-3/5 ${
 						!isOnline ? "" : "delay-700 translate-y-12 opacity-0"
 					}`}>
 					<div className="border-b py-4 px-5 flex items-center">

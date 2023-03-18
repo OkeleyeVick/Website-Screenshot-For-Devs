@@ -26,7 +26,6 @@ const MainSection = () => {
 	const [imageLink, setImageLink] = useState(""); //link gotten from api
 	const [error, setError] = useState(); //setting error state everywhere
 	const [resolutionTextvalue, setResolutionTextValue] = useState("1280 x 1024 (SXGA)");
-	const [object, setObject] = useState([]);
 
 	const urlRef = useRef();
 
@@ -158,7 +157,6 @@ const MainSection = () => {
 	return (
 		<sizeContext.Provider
 			value={{
-				setObject,
 				resolutionTextvalue,
 				setResolutionTextValue,
 				urlParameters,

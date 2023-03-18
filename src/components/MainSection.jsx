@@ -10,11 +10,6 @@ import Error from "../assets/UI-components/Error";
 export const sizeContext = createContext();
 
 const MainSection = () => {
-	// online status
-	// start redux toolkit
-	// open source shiiii
-	// diff between yarn and npm
-
 	const [showErrorState, setShowErrorState] = useState(false);
 	const [screenSizeDropdown, setSecreenSizeDropdown] = useState(false); // dropdown for selection for screenshot size
 	const [formatDropdown, setFormatDropdown] = useState(false); //format whether in jpeg or png format

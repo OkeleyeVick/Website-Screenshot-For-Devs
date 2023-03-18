@@ -24,7 +24,7 @@ function App() {
 						</span>
 					</div>
 					<div className="flex items-center flex-col justify-center gap-y-8 p-5">
-						<div className="bg-slate-200 rounded-full p-3 glassmorphism">
+						<div className="bg-slate-200 rounded-full p-3">
 							<Icon
 								icon={`${!isOnline ? "ph:wifi-slash" : "ph:wifi-high"}`}
 								className={`w-8 h-8 flex text ${!isOnline ? "text-[#DD2E44]" : "text-[#2a954a]"}`}

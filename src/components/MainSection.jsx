@@ -10,8 +10,6 @@ import Error from "../assets/UI-components/Error";
 export const sizeContext = createContext();
 
 const MainSection = () => {
-	// error states ✅
-	// localStorage to set the link so that when they refresh, it gets what's there before
 	// online status
 	// start redux toolkit
 	// open source shiiii

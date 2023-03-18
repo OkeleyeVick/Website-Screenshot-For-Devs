@@ -148,10 +148,15 @@ const MainSection = () => {
 			setShowErrorState(true);
 			showThenHideErrorState();
 		}
-		if (!urlRef.current.value.startsWith("https://" || "http://")) {
+		if (!urlRef.current.value.startsWith("https://" || "http://") && urlRef.current.value.startsWith("www.")) {
 			newValue = "https://".concat(urlRef.current.value);
 			setLoading(true);
-			fetchScreenShot(newValue ?? urlRef.current.value);
+			fetchScreenShot(newValue);
+		} else if (urlRef.current.value.startsWith("https://" || "http://")) {
+			setLoading(true);
+			fetchScreenShot(urlRef.current.value);
+		} else {
+			setError("Some error occurred, try again. If it persist, make a report.");
 		}
 	}
 

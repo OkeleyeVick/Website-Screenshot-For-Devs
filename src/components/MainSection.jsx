@@ -19,8 +19,8 @@ const MainSection = () => {
 		index: null,
 	}); // toggle res dropdown button active states
 	const [urlParameters, setUrlParameters] = useState({
-		width: null,
-		height: null,
+		width: 1280,
+		height: 1024,
 		full_page: false,
 		format: `jpeg`, //default imageFormat
 	}); //also info passed by user
@@ -49,15 +49,15 @@ const MainSection = () => {
 
 	async function fetchScreenShot() {
 		// const { width, height, full_page } = urlParameters;
-		const { full_page, format } = urlParameters;
+		const { width, height, full_page, format } = urlParameters;
 		const rapid_two = `https://screenshot-maker.p.rapidapi.com/browser/screenshot/_take?`;
 		const abstract_url = `https://screenshot.abstractapi.com/v1/?`;
 		const flash_url = `https://api.apiflash.com/v1/urltoimage?`;
 		const pikwy_url = `https://api.pikwy.com?`;
 
-		const height = 1024;
-		const width = 300;
-		const urlLink = `https://github.com/OkeleyeVick/Website-Screenshot-For-Devs/commit/1014abf7401af316b6c5956bf6db955f9888963d`;
+		// const height = 1024;
+		// const width = 300;
+		// const urlLink = `https://github.com/OkeleyeVick/Website-Screenshot-For-Devs/commit/1014abf7401af316b6c5956bf6db955f9888963d`;
 		const rapid_fetch = {
 			url: `${rapid_two}targetUrl=${urlLink}&pageWidth=${width}&pageHeight=${height}&clickDelay=500&deviceScaleFactor=1&clickDelay=500&clickCount=1`,
 			option: Options("screenshot-maker.p.rapidapi.com"),
@@ -134,7 +134,12 @@ const MainSection = () => {
 	}
 
 	function handleSubmission() {
-		fetchScreenShot();
+		if (urlRef.current.value.length === 0) {
+			console.log("Error");
+			setError("Input cannot be empty");
+		} else if (urlRef.current.value.includes("https://" || "www" || "https//")) {
+			console.log("yes it does");
+		}
 	}
 	const handleSetImageFormat = (imageFormat, index) => {
 		const viewFormat = document.querySelector("button .viewFormat");
@@ -171,7 +176,7 @@ const MainSection = () => {
 						<small className="text-sm">Enter Website URL</small>
 					</div>
 					<form onSubmit={handleSubmission}>
-						<div className="">
+						<div>
 							<input
 								type="url"
 								ref={urlRef}

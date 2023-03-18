@@ -54,8 +54,8 @@ const MainSection = () => {
 		setLoading(false);
 	};
 
-	async function fetchScreenShot() {
-		const urlLink = urlRef.current.value;
+	async function fetchScreenShot(value) {
+		const urlLink = value.trim();
 		const { width, height, full_page, format } = urlParameters;
 		const rapid_two = `https://screenshot-maker.p.rapidapi.com/browser/screenshot/_take?`;
 		const abstract_url = `https://screenshot.abstractapi.com/v1/?`;
@@ -141,18 +141,17 @@ const MainSection = () => {
 	}
 
 	function handleSubmission() {
+		let newValue;
 		if (urlRef.current.value.length === 0) {
 			setError("Input cannot be empty");
 			urlRef.current.focus();
 			setShowErrorState(true);
 			showThenHideErrorState();
-		} else if (urlRef.current.value.includes("https://" || "www." || "http://")) {
+		}
+		if (!urlRef.current.value.startsWith("https://" || "http://")) {
+			newValue = "https://".concat(urlRef.current.value);
 			setLoading(true);
-			fetchScreenShot();
-		} else {
-			setError("Unexpected error occurred, try again or report to the developer");
-			setShowErrorState(true);
-			showThenHideErrorState();
+			fetchScreenShot(newValue ?? urlRef.current.value);
 		}
 	}
 

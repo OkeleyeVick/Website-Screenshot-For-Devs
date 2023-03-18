@@ -270,7 +270,7 @@ const MainSection = () => {
 												name="screen-size-type"
 												className="bg-gray-200 w-6 h-6"
 												onChange={() => {
-													return setUrlParameters({
+													setUrlParameters({
 														...urlParameters,
 														width: 1280,
 														height: 1024,
@@ -289,7 +289,7 @@ const MainSection = () => {
 												name="screen-size-type"
 												className="bg-gray-200 w-6 h-6"
 												onChange={() => {
-													return setUrlParameters({
+													setUrlParameters({
 														...urlParameters,
 														width: 768,
 														height: 900,
@@ -308,7 +308,7 @@ const MainSection = () => {
 												name="screen-size-type"
 												className="bg-gray-200 w-6 h-6"
 												onChange={() => {
-													return setUrlParameters({
+													setUrlParameters({
 														...urlParameters,
 														width: 576,
 														height: 900,
@@ -327,7 +327,7 @@ const MainSection = () => {
 												name="screen-size-type"
 												className="bg-gray-200 w-6 h-6"
 												onChange={() => {
-													return setUrlParameters({
+													setUrlParameters({
 														...urlParameters,
 														width: "",
 														height: "",

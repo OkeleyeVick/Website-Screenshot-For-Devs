@@ -10,7 +10,7 @@ const OtherSection = () => {
 					<h2 className="md:col-start-1 md:col-end-12 lg:col-start-2 lg:col-end-9 font-extrabold text-3xl">Steps to take screenshot</h2>
 				</div>
 				<div className="md:grid md:grid-cols-12 lg:grid-cols-9 mt-10">
-					<div className="md:col-start-1 md:col-end-13 flex flex-col md:grid lg:col-end-9 lg:col-start-2 grid-cols-3 gap-x-8 gap-y-10 mt-8">
+					<div className="md:col-start-1 md:col-end-13 flex flex-col md:grid lg:col-end-9 lg:col-start-2 grid-cols-3 gap-x-8 gap-y-14 mt-8">
 						{CardContent.map((eachItem, index) => {
 							const { icon, paragraph, color } = eachItem;
 							return <Card key={index} props={{ icon, paragraph, color }} />;

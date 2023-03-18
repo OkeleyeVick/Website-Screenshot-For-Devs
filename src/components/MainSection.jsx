@@ -9,6 +9,8 @@ import { abstract, rapid, pikwy, flash } from "./utils/keys";
 export const sizeContext = createContext();
 
 const MainSection = () => {
+	// localStorage to set the link so that when they refresh, it gets what's there before
+
 	const [screenSizeDropdown, setSecreenSizeDropdown] = useState(false); // dropdown for selection for screenshot size
 	const [formatDropdown, setFormatDropdown] = useState(false); //format whether in jpeg or png format
 	const [loading, setLoading] = useState(false); //loader when fetch is running under the hood

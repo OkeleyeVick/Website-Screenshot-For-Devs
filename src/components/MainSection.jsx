@@ -146,7 +146,7 @@ const MainSection = () => {
 			urlRef.current.focus();
 			setShowErrorState(true);
 			showThenHideErrorState();
-		} else if (urlRef.current.value.includes("https://" || "www." || "https//")) {
+		} else if (urlRef.current.value.includes("https://" || "www." || "http://")) {
 			setLoading(true);
 			fetchScreenShot();
 		} else {

@@ -2,10 +2,12 @@ import { Icon } from "@iconify/react";
 import React from "react";
 
 const Footer = () => {
-	const handleShare = ({ link }) => {
+	const handleShare = ({ link, title, text }) => {
 		if ("share" in navigator) {
 			navigator.share({
 				url: link,
+				title: title,
+				text: text,
 			});
 		}
 	};
@@ -30,7 +32,9 @@ const Footer = () => {
 									className="hover:text-main transition duration-300 ease-in-out"
 									onClick={() =>
 										handleShare({
-											link: "www.google.com",
+											link: "https://v-language-translator.netlify.app/",
+											title: "Website Screenshot",
+											text: "A website for developers and content writers to capture a better screenshot of website for use case",
 										})
 									}>
 									{icon}

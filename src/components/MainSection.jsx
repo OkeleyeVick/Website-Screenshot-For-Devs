@@ -155,8 +155,6 @@ const MainSection = () => {
 		} else if (urlRef.current.value.startsWith("https://" || "http://")) {
 			setLoading(true);
 			fetchScreenShot(urlRef.current.value);
-		} else {
-			setError("Some error occurred, try again. If it persist, make a report.");
 		}
 	}
 

@@ -11,7 +11,7 @@ function App() {
 		<div className="px-3 md:8">
 			{createPortal(
 				<div
-					className={`fixed z-50 inset-0 flex items-center justify-center transition duration-300 ease-linear p-3 ${
+					className={`fixed z-50 inset-0 w-full h-full flex items-center justify-center transition duration-300 ease-linear p-3 ${
 						isOnline ? "pointer-events-none opacity-0 delay-[1s]" : "glassmorphism opacity-100"
 					}`}>
 					<div
